@@ -1,5 +1,6 @@
 @import "modern-normalize";
 @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css");
+@stylex stylesheet;
 
 body {
   background-color: #a0a0a0;
@@ -27,4 +28,7 @@ p {
   margin: 0;
 }
 
-@stylex stylesheet;
+button {
+  border: none;
+  outline: none;
+}
