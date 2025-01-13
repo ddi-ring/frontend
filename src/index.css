@@ -1,8 +1,14 @@
 @import "modern-normalize";
-@stylex stylesheet;
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css");
 
 body {
   background-color: #a0a0a0;
+  font-family:
+    "Pretendard Variable",
+    Pretendard,
+    -apple-system,
+    system-ui,
+    sans-serif;
 }
 
 ul {
@@ -11,6 +17,14 @@ ul {
   padding: 0;
 }
 
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
 p {
   margin: 0;
 }
+
+@stylex stylesheet;
