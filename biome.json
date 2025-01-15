@@ -12,7 +12,8 @@
       },
       "style": {
         "noNonNullAssertion": "error",
-        "useBlockStatements": "error"
+        "useBlockStatements": "error",
+        "jsx-a11y/alt-text": "off"
       }
     }
   },
@@ -26,7 +27,6 @@
   "javascript": {
     "formatter": {
       "quoteStyle": "double",
-      "trailingComma": "es5",
       "semicolons": "always"
     }
   }
