@@ -274,9 +274,17 @@ export function EventForm({ templateId }: EventFormProps) {
       </div>
 
       <div {...stylex.props(styles.formGroup)}>
-        <label htmlFor="password" {...stylex.props(styles.label)}>
-          초대장 비밀번호
-        </label>
+        <div {...stylex.props(styles.iconLabelContainer)}>
+          <img
+            src="/lock.svg"
+            alt="비밀번호 아이콘"
+            {...stylex.props(styles.lockIcon)}
+          />
+          <label htmlFor="password" {...stylex.props(styles.label)}>
+            초대장 비밀번호
+          </label>
+        </div>
+
         <input
           type="password"
           id="password"
@@ -412,5 +420,13 @@ const styles = stylex.create({
   timeSeparator: {
     color: "#333",
     fontSize: "16px",
+  },
+  iconLabelContainer: {
+    display: "flex",
+    gap: 6,
+  },
+  lockIcon: {
+    width: 16,
+    height: 16,
   },
 });
