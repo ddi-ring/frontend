@@ -23,6 +23,13 @@ export default function Page({ loaderData: { list } }: Route.ComponentProps) {
   return (
     <>
       <header {...stylex.props(styles.header)}>
+        <div onClick={() => navigate(-1)} {...stylex.props(styles.backButton)}>
+          <img
+            src="/arrow-back.svg"
+            alt="뒤로 가기"
+            {...stylex.props(styles.backIcon)}
+          />
+        </div>
         <h1 {...stylex.props(styles.headerTitle)}>카드 디자인 선택</h1>
       </header>
       <main {...stylex.props(styles.main)}>
@@ -68,6 +75,21 @@ const styles = stylex.create({
   main: {
     marginTop: 52,
     padding: "24px 16px",
+  },
+  backButton: {
+    background: "none",
+    border: "none",
+    cursor: "pointer",
+    padding: 8,
+    position: "absolute",
+    left: 8,
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  backIcon: {
+    width: 24,
+    height: 24,
   },
   cardList: {
     display: "grid",

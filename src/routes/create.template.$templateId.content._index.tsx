@@ -20,12 +20,13 @@ export default function Page({
   return (
     <div {...stylex.props(styles.container)}>
       <header {...stylex.props(styles.header)}>
-        <button
-          onClick={() => navigate(-1)}
-          {...stylex.props(styles.backButton)}
-        >
-          ←
-        </button>
+        <div onClick={() => navigate(-1)} {...stylex.props(styles.backButton)}>
+          <img
+            src="/arrow-back.svg"
+            alt="뒤로 가기"
+            {...stylex.props(styles.backIcon)}
+          />
+        </div>
         <h1 {...stylex.props(styles.headerTitle)}>내용 입력</h1>
       </header>
 
@@ -50,17 +51,23 @@ const styles = stylex.create({
     padding: "14px 16px",
     position: "fixed",
     top: 0,
-    width: "100%",
+    width: 430,
     zIndex: 10,
   },
   backButton: {
     background: "none",
     border: "none",
     cursor: "pointer",
-    fontSize: 20,
     padding: 8,
     position: "absolute",
     left: 8,
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  backIcon: {
+    width: 24,
+    height: 24,
   },
   headerTitle: {
     flex: 1,
