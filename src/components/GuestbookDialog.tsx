@@ -19,13 +19,18 @@ export function GuestbookDialog({ onClose }: GuestbookDialogProps) {
     <div {...stylex.props(sharedStyles.overlay)}>
       <div {...stylex.props(styles.dialog)}>
         <div {...stylex.props(sharedStyles.header)}>
-          <h2 {...stylex.props(sharedStyles.title)}>방명록 5</h2>
-          <button onClick={onClose} {...stylex.props(sharedStyles.closeButton)}>
-            ×
-          </button>
+          <h2 {...stylex.props(sharedStyles.title)}>
+            방명록 <span {...stylex.props(sharedStyles.titleNum)}>5</span>
+          </h2>
+          <img
+            onClick={onClose}
+            src="/close.svg"
+            alt="닫기 아이콘"
+            {...stylex.props(styles.closeIcon)}
+          />
         </div>
 
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} {...stylex.props(styles.formContainer)}>
           <input
             type="text"
             placeholder="별명"
@@ -49,13 +54,13 @@ export function GuestbookDialog({ onClose }: GuestbookDialogProps) {
           {Array.from({ length: 5 }).map((_, index) => (
             <div key={index} {...stylex.props(styles.commentItem)}>
               <div {...stylex.props(styles.commentHeader)}>
-                <button {...stylex.props(styles.editButton)}>쓴뒤기</button>
+                <button {...stylex.props(styles.editButton)}>쫀또기</button>
                 <span {...stylex.props(styles.date)}>25.01.08</span>
               </div>
               <p {...stylex.props(styles.commentText)}>
-                쓴뒤기 막구실당~~~~~~~
+                쫀또기 먹구싶당~~~~~~
                 <br />
-                쓴득~쓴뒤오~~ㄱ~~~ 쓴뒤뒤뒤둑
+                쫀도윽~~쫀또으ㅡㄱ~~~ 쫀도도도도독
               </p>
             </div>
           ))}
@@ -77,6 +82,12 @@ export const styles = stylex.create({
     maxHeight: "90vh",
     overflowY: "auto",
   },
+  formContainer: {
+    display: "flex",
+    gap: "8px",
+    flexDirection: "column",
+    marginBottom: "16px",
+  },
   submitButton: {
     width: "100%",
     padding: "14px",
@@ -92,6 +103,7 @@ export const styles = stylex.create({
   comments: {
     display: "flex",
     flexDirection: "column",
+    padding: "16px 0px",
     gap: "16px",
   },
   commentItem: {
@@ -110,16 +122,23 @@ export const styles = stylex.create({
     border: "none",
     padding: 0,
     fontSize: "14px",
+    fontWeight: 400,
     cursor: "pointer",
   },
   date: {
-    color: "#666",
-    fontSize: "14px",
+    fontSize: "12px",
+    fontWeight: 400,
+    color: "#909090",
   },
   commentText: {
     fontSize: "14px",
     lineHeight: "1.5",
     color: "#333",
     whiteSpace: "pre-wrap",
+  },
+  closeIcon: {
+    width: 24,
+    height: 24,
+    cursor: "pointer",
   },
 });

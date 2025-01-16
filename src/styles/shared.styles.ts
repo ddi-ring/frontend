@@ -23,6 +23,9 @@ export const sharedStyles = stylex.create({
     fontSize: "18px",
     fontWeight: "600",
   },
+  titleNum: {
+    color: "#FF731D",
+  },
   closeButton: {
     background: "none",
     border: "none",
@@ -35,7 +38,6 @@ export const sharedStyles = stylex.create({
     padding: "12px 16px",
     border: "1px solid #DDE1E6",
     borderRadius: "8px",
-    marginBottom: "12px",
     fontSize: "16px",
   },
 });

@@ -18,14 +18,17 @@ export function PasswordDialog({ onClose, onConfirm }: PasswordDialogProps) {
   return (
     <div {...stylex.props(sharedStyles.overlay)}>
       <div {...stylex.props(styles.dialog)}>
-        <div {...stylex.props(sharedStyles.header)}>
-          <h2 {...stylex.props(sharedStyles.title)}>초대장 비밀번호</h2>
-          <button onClick={onClose} {...stylex.props(sharedStyles.closeButton)}>
-            ×
-          </button>
+        <div {...stylex.props(styles.header)}>
+          <img
+            onClick={onClose}
+            src="/close.svg"
+            alt="닫기 아이콘"
+            {...stylex.props(styles.closeIcon)}
+          />
         </div>
 
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} {...stylex.props(styles.formContainer)}>
+          <h2 {...stylex.props(styles.title)}>초대장 비밀번호</h2>
           <input
             type="password"
             placeholder="비밀번호를 입력하세요"
@@ -44,11 +47,26 @@ export function PasswordDialog({ onClose, onConfirm }: PasswordDialogProps) {
 
 export const styles = stylex.create({
   dialog: {
-    width: "100%",
-    maxWidth: "430px",
+    width: "60%",
     backgroundColor: "#fff",
     borderRadius: "16px",
     padding: "20px",
+  },
+  title: {
+    textAlign: "center",
+    fontSize: "18px",
+    fontWeight: 600,
+    paddingBottom: "20px",
+  },
+  formContainer: {
+    display: "flex",
+    flexDirection: "column",
+    gap: "12px",
+  },
+  header: {
+    display: "flex",
+    justifyContent: "flex-end",
+    marginBottom: "4px",
   },
   confirmButton: {
     width: "100%",
@@ -57,6 +75,11 @@ export const styles = stylex.create({
     border: "none",
     borderRadius: "8px",
     fontSize: "16px",
+    cursor: "pointer",
+  },
+  closeIcon: {
+    width: 24,
+    height: 24,
     cursor: "pointer",
   },
 });

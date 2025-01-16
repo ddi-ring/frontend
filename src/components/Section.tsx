@@ -22,7 +22,7 @@ interface ContentSection extends SectionBase {
   title: string;
   description: string;
   image: string;
-  sectionSubDescription: string;
+  subDescription: string;
 }
 
 type Section = MainSection | ContentSection;
