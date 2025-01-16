@@ -1,101 +1,15 @@
+import { useSectionScroll } from "@/hooks/usePageScroll.ts";
 import stylex from "@stylexjs/stylex";
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router";
 
 export default function Page() {
   const [currentSection, setCurrentSection] = useState(0);
-  const containerRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const container = containerRef.current;
-    if (!container) {
-      return;
-    }
-
-    let isScrolling = false;
-    let touchStartY = 0;
-    let lastWheelTime = Date.now();
-    let wheelAccumulator = 0;
-    let lastSectionChangeTime = Date.now();
-
-    const WHEEL_THRESHOLD = 50;
-    const SCROLL_COOLDOWN = 800;
-    const MIN_SECTION_DURATION = 1000;
-
-    const moveToSection = (direction: number) => {
-      if (isScrolling) {
-        return;
-      }
-
-      const currentTime = Date.now();
-      if (currentTime - lastSectionChangeTime < MIN_SECTION_DURATION) {
-        return;
-      }
-
-      const nextSection = currentSection + direction;
-      if (nextSection < 0 || nextSection > 3) {
-        return;
-      }
-
-      isScrolling = true;
-      setCurrentSection(nextSection);
-      wheelAccumulator = 0;
-      lastSectionChangeTime = currentTime;
-
-      setTimeout(() => {
-        isScrolling = false;
-      }, SCROLL_COOLDOWN);
-    };
-
-    const handleWheel = (e: WheelEvent) => {
-      e.preventDefault();
-
-      const currentTime = Date.now();
-      if (currentTime - lastWheelTime > SCROLL_COOLDOWN) {
-        wheelAccumulator = 0;
-      }
-      lastWheelTime = currentTime;
-
-      wheelAccumulator += Math.abs(e.deltaY);
-
-      if (wheelAccumulator >= WHEEL_THRESHOLD) {
-        const direction = e.deltaY > 0 ? 1 : -1;
-        moveToSection(direction);
-      }
-    };
-
-    const handleTouchStart = (e: TouchEvent) => {
-      if (isScrolling) {
-        return;
-      }
-      touchStartY = e.touches[0].clientY;
-    };
-
-    const handleTouchMove = (e: TouchEvent) => {
-      if (isScrolling) {
-        return;
-      }
-
-      const touchEndY = e.touches[0].clientY;
-      const deltaY = touchStartY - touchEndY;
-
-      if (Math.abs(deltaY) > WHEEL_THRESHOLD) {
-        const direction = deltaY > 0 ? 1 : -1;
-        moveToSection(direction);
-        touchStartY = touchEndY;
-      }
-    };
-
-    container.addEventListener("wheel", handleWheel, { passive: false });
-    container.addEventListener("touchstart", handleTouchStart);
-    container.addEventListener("touchmove", handleTouchMove);
-
-    return () => {
-      container.removeEventListener("wheel", handleWheel);
-      container.removeEventListener("touchstart", handleTouchStart);
-      container.removeEventListener("touchmove", handleTouchMove);
-    };
-  }, [currentSection]);
+  const containerRef = useSectionScroll({
+    totalSections: 4,
+    currentSection,
+    onSectionChange: setCurrentSection,
+  });
 
   return (
     <div {...stylex.props(styles.container)} ref={containerRef}>
@@ -105,6 +19,7 @@ export default function Page() {
       >
         <section {...stylex.props(styles.section)}>
           <p {...stylex.props(styles.subtitle)}>초대의 시작, 설렘의 울림</p>
+
           <img
             src="public/images/logoTitle.png"
             alt="ddring-text-logo"
@@ -118,49 +33,46 @@ export default function Page() {
             alt="ddring-logo"
             {...stylex.props(styles.logoImage)}
           />
-          <Link to="/create/template" {...stylex.props(styles.linkButton)}>초대 카드 만들기</Link>
-
+          <Link to="/create/template" {...stylex.props(styles.linkButton)}>
+            초대 카드 만들기
+          </Link>
         </section>
 
         <section {...stylex.props(styles.section)}>
-          <p {...stylex.props(styles.sectionTitle)}>
-            간편한 초대장 제작
-          </p>
+          <p {...stylex.props(styles.sectionTitle)}>간편한 초대장 제작</p>
           <p {...stylex.props(styles.sectionDescription)}>
             복잡한 과정은 No!
-            <br/>
+            <br />
             누구나 쉽게 예쁜 초대장을 만들 수 있어요.
           </p>
           <p {...stylex.props(styles.sectionSubDescription)}>
             간단한 정보 입력만으로
-            <br/>
+            <br />
             초대장을 쉽고 빠르게 완성할 수 있어요.
           </p>
           <img
-              src="public/images/onboard.png"
-              alt="ddring-logo"
-              {...stylex.props(styles.sectionImage)}
+            src="public/images/onboard.png"
+            alt="ddring-logo"
+            {...stylex.props(styles.sectionImage)}
           />
         </section>
 
         <section {...stylex.props(styles.section)}>
-          <p {...stylex.props(styles.sectionTitle)}>
-            다양한 초대장 템플릿
-          </p>
+          <p {...stylex.props(styles.sectionTitle)}>다양한 초대장 템플릿</p>
           <p {...stylex.props(styles.sectionDescription)}>
             모든 특별한 순간을 위한
-            <br/>
+            <br />
             완벽한 디자인이 준비되어 있어요.
           </p>
           <p {...stylex.props(styles.sectionSubDescription)}>
             생일 파티, 돌잔치, 연말 모임 등
-            <br/>
+            <br />
             모든 이벤트에 활영할 수 있는 템플릿을 제공해요.
           </p>
           <img
-              src="public/images/onboard.png"
-              alt="ddring-logo"
-              {...stylex.props(styles.sectionImage)}
+            src="public/images/onboard.png"
+            alt="ddring-logo"
+            {...stylex.props(styles.sectionImage)}
           />
         </section>
 
@@ -168,20 +80,19 @@ export default function Page() {
           <p {...stylex.props(styles.sectionTitle)}>방명록 기능</p>
           <p {...stylex.props(styles.sectionDescription)}>
             초대장을 받는 사람들과
-            <br/>
+            <br />
             특별한 순간을 공유하세요.
           </p>
           <p {...stylex.props(styles.sectionSubDescription)}>
             초대장에 방명록을 남겨,
-            <br/>
+            <br />
             소중한 순간에 대한 기대를 함께 나눌 수 있어요.
           </p>
           <img
-              src="public/images/onboard.png"
-              alt="ddring-logo"
-              {...stylex.props(styles.sectionImage)}
+            src="public/images/onboard.png"
+            alt="ddring-logo"
+            {...stylex.props(styles.sectionImage)}
           />
-         
         </section>
       </div>
 
@@ -235,45 +146,44 @@ const styles = stylex.create({
     width: 100,
     height: 59,
   },
-  logoImage : {
-    width:  330,
+  logoImage: {
+    width: 330,
     height: 260,
-    margin : '80px 0px',
+    margin: "80px 0px",
   },
-  sectionImage : {
-    width:  343,
+  sectionImage: {
+    width: 343,
     height: 323,
-    },
+  },
   description: {
     color: "#191919",
     fontSize: 16,
     textAlign: "center",
-    lineHeight : '24px',
+    lineHeight: "24px",
     whiteSpace: "pre-line",
     fontWeight: 600,
-
   },
   sectionTitle: {
     fontSize: 14,
     fontWeight: 600,
     textAlign: "center",
-    color : "#FF731D",
+    color: "#FF731D",
   },
   sectionDescription: {
     fontSize: 18,
-    fontWeight : 600,
+    fontWeight: 600,
     textAlign: "center",
     lineHeight: "25.92px",
     padding: "12px 0px",
   },
   sectionSubDescription: {
     fontSize: 14,
-    fontWeight : 500,
+    fontWeight: 500,
     color: "#909090",
     textAlign: "center",
     lineHeight: "20px",
-    paddingBottom : "28px"
-    },
+    paddingBottom: "28px",
+  },
 
   linkButton: {
     backgroundColor: "#FF731D",
