@@ -102,6 +102,10 @@ const styles = stylex.create({
     cursor: "pointer",
     flexDirection: "column",
     gap: 8,
+    transition: "transform 0.2s ease-in-out",
+    ":hover": {
+      transform: "scale(1.05)",
+    },
   },
   cardItemThumbnail: {
     aspectRatio: "3/4",
@@ -110,5 +114,9 @@ const styles = stylex.create({
     minHeight: 216,
     objectFit: "cover",
     width: "100%",
+    transition: "box-shadow 0.2s ease-in-out",
+    ":hover": {
+      boxShadow: "0 4px 12px rgba(255, 115, 29, 0.3)",
+    },
   },
 });
