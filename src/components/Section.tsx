@@ -11,16 +11,18 @@ interface MainSection extends SectionBase {
   subtitle: string;
   title: string;
   description: string;
+  button?: {
+    text: string;
+    link: string;
+  };
 }
 
 interface ContentSection extends SectionBase {
   type: "content";
   title: string;
   description: string;
-  button?: {
-    text: string;
-    link: string;
-  };
+  image: string;
+  sectionSubDescription: string;
 }
 
 type Section = MainSection | ContentSection;
@@ -40,13 +42,22 @@ function MainSection({ section }: { section: MainSection }) {
   return (
     <section {...stylex.props(styles.section)}>
       <p {...stylex.props(styles.subtitle)}>{section.subtitle}</p>
-      <h1 {...stylex.props(styles.title)}>{section.title}</h1>
       <img
-        src="/api/placeholder/200/200"
-        alt="띠링 캐릭터"
+        src="../../public/images/logoTitle.png"
+        alt="띠링 로고"
         {...stylex.props(styles.mainImage)}
       />
       <p {...stylex.props(styles.description)}>{section.description}</p>
+      <img
+        src="../../public/images/logo.png"
+        alt="띠링 캐릭터"
+        {...stylex.props(styles.logoImage)}
+      />
+      {section.button && (
+        <Link to={section.button.link} {...stylex.props(styles.linkButton)}>
+          {section.button.text}
+        </Link>
+      )}
     </section>
   );
 }
@@ -56,12 +67,14 @@ function ContentSection({ section }: { section: ContentSection }) {
     <section {...stylex.props(styles.section)}>
       <h2 {...stylex.props(styles.sectionTitle)}>{section.title}</h2>
       <p {...stylex.props(styles.sectionDescription)}>{section.description}</p>
-      <div {...stylex.props(styles.placeholder)} />
-      {section.button && (
-        <Link to={section.button.link} {...stylex.props(styles.ctaButton)}>
-          {section.button.text}
-        </Link>
-      )}
+      <div {...stylex.props(styles.sectionSubDescription)}>
+        {section.subDescription}
+      </div>
+      <img
+        src="../../public/images/logo.png"
+        alt="띠링 캐릭터"
+        {...stylex.props(styles.logoImage)}
+      />
     </section>
   );
 }
@@ -80,6 +93,11 @@ const styles = stylex.create({
     fontSize: 14,
     paddingBottom: 12,
     fontWeight: 600,
+  },
+  mainImage: {
+    width: 100,
+    height: 59,
+    marginBottom: 56,
   },
   logoTitleImage: {
     marginBottom: 56,
@@ -113,6 +131,7 @@ const styles = stylex.create({
     fontSize: 18,
     fontWeight: 600,
     textAlign: "center",
+    whiteSpace: "pre-line",
     lineHeight: "25.92px",
     padding: "12px 0px",
   },
@@ -120,6 +139,7 @@ const styles = stylex.create({
     fontSize: 14,
     fontWeight: 500,
     color: "#909090",
+    whiteSpace: "pre-line",
     textAlign: "center",
     lineHeight: "20px",
     paddingBottom: "28px",

@@ -12,7 +12,7 @@ export async function loader() {
         id: faker.string.uuid(),
         title: faker.word.words(),
         thumbnail_image_url: faker.image.url(),
-      })
+      }),
     ),
   };
 }
@@ -58,7 +58,7 @@ const styles = stylex.create({
     padding: "14px 16px",
     position: "fixed",
     top: 0,
-    width : 430,
+    width: 430,
   },
   headerTitle: {
     fontSize: 18,

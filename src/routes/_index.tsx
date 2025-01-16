@@ -19,7 +19,7 @@ export default function Page() {
         style={{ transform: `translateY(-${currentSection * 100}%)` }}
       >
         {SECTIONS.map((section, index) => (
-          <Section key={index} section={section} />
+          <Section key={`${index}-${section.title}`} section={section} />
         ))}
       </div>
     </div>
