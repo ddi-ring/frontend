@@ -37,10 +37,11 @@ export function ImageUpload({
         <span {...stylex.props(styles.imageCount)}>{previewUrls.length}/5</span>
       </div>
 
-      <div {...stylex.props(styles.imageGrid)}>
+      <div {...stylex.props(styles.imageContainer)}>
         <div {...stylex.props(styles.uploadBox)}>
           <input
             type="file"
+            multiple
             id="thumbnailImage"
             accept={ACCEPTED_IMAGE_TYPES.join(",")}
             {...register}
@@ -58,11 +59,13 @@ export function ImageUpload({
           <span {...stylex.props(styles.uploadText)}>이미지 추가</span>
         </div>
 
-        {previewUrls.map((url, index) => (
-          <div key={url} {...stylex.props(styles.imagePreview)}>
-            <img src={url} alt={`Preview ${index + 1}`} />
-          </div>
-        ))}
+        <div {...stylex.props(styles.previewScroll)}>
+          {previewUrls.map((url, index) => (
+            <div key={url} {...stylex.props(styles.imagePreview)}>
+              <img src={url} alt={`Preview ${index + 1}`} />
+            </div>
+          ))}
+        </div>
       </div>
 
       {error && <span {...stylex.props(styles.errorText)}>{error}</span>}
@@ -90,7 +93,11 @@ const styles = stylex.create({
     fontSize: "14px",
     color: "#666",
   },
-  imageGrid: {
+  imageContainer: {
+    display: "flex",
+    gap: "8px",
+  },
+  previewScroll: {
     display: "flex",
     gap: "8px",
     overflowX: "auto",
