@@ -6,7 +6,15 @@ export const eventFormSchema = z.object({
   address: z.string().min(1, "주소를 입력해주세요"),
   addressDetail: z.string().optional(),
   invitationMessage: z.string().optional(),
-  eventTime: z.string().min(1, "이벤트 시간을 선택해주세요"),
+  eventDate: z
+    .string()
+    .regex(/^\d{4}\.\d{2}\.\d{2}$/, "올바른 날짜 형식이 아닙니다 (0000.00.00)"),
+  startTime: z
+    .string()
+    .regex(/^\d{2}:\d{2}$/, "올바른 시간 형식이 아닙니다 (00:00)"),
+  endTime: z
+    .string()
+    .regex(/^\d{2}:\d{2}$/, "올바른 시간 형식이 아닙니다 (00:00)"),
   password: z
     .string()
     .length(4, "4자리 숫자를 입력해주세요")

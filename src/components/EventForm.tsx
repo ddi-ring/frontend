@@ -32,7 +32,9 @@ export function EventForm({ templateId }: EventFormProps) {
       address: "",
       addressDetail: "",
       invitationMessage: "",
-      eventTime: "",
+      eventDate: "",
+      startTime: "",
+      endTime: "",
       password: "",
     },
   });
@@ -57,28 +59,74 @@ export function EventForm({ templateId }: EventFormProps) {
     setIsOpen(false);
   };
 
+  const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    let value = e.target.value;
+
+    value = value.replace(/\D/g, "");
+
+    value = value.slice(0, 8);
+
+    if (value.length >= 4) {
+      value = `${value.slice(0, 4)}.${value.slice(4)}`;
+    }
+    if (value.length >= 7) {
+      value = `${value.slice(0, 7)}.${value.slice(7)}`;
+    }
+
+    setValue("eventDate", value);
+  };
+
+  const handleTimeChange = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    field: "startTime" | "endTime",
+  ) => {
+    let value = e.target.value;
+
+    value = value.replace(/\D/g, "");
+
+    value = value.slice(0, 4);
+
+    if (value.length >= 2) {
+      value = `${value.slice(0, 2)}:${value.slice(2)}`;
+
+      const hours = Number.parseInt(value.slice(0, 2));
+      if (hours > 23) {
+        value = `23${value.slice(2)}`;
+      }
+
+      if (value.length > 3) {
+        const minutes = Number.parseInt(value.slice(3));
+        if (minutes > 59) {
+          value = `${value.slice(0, 3)}59`;
+        }
+      }
+    }
+
+    setValue(field, value);
+  };
+
   const onSubmit = async (data: EventFormData) => {
     try {
       setIsSubmitting(true);
 
-      let thumbnailImageId = undefined;
-      if (data.thumbnailImage?.length) {
-        const uploadResult = await uploadEventCardFile({
-          file: data.thumbnailImage[0],
-        });
-        thumbnailImageId = uploadResult.id;
-      }
-
-      await createEventCard({
-        template_key: templateId,
-        thumbnail_image_id: thumbnailImageId,
-        title: data.title,
-        address: data.address,
-        address_detail: data.addressDetail,
-        invitation_message: data.invitationMessage,
-        event_time: new Date(data.eventTime).toISOString(),
-        password: data.password,
-      });
+      // let thumbnailImageId = undefined;
+      // if (data.thumbnailImage?.length) {
+      //   const uploadResult = await uploadEventCardFile({
+      //     file: data.thumbnailImage[0],
+      //   });
+      //   thumbnailImageId = uploadResult.id;
+      // }
+      //
+      // await createEventCard({
+      //   template_key: templateId,
+      //   thumbnail_image_id: thumbnailImageId,
+      //   title: data.title,
+      //   address: data.address,
+      //   address_detail: data.addressDetail,
+      //   invitation_message: data.invitationMessage,
+      //   event_time: new Date(data.eventDate).toISOString(),
+      //   password: data.password,
+      // });
 
       navigate(`/create/template/${templateId}/preview`);
     } catch (error) {
@@ -157,18 +205,52 @@ export function EventForm({ templateId }: EventFormProps) {
       </div>
 
       <div {...stylex.props(styles.formGroup)}>
-        <label htmlFor="eventTime" {...stylex.props(styles.label)}>
-          이벤트 시간
+        <label htmlFor="eventDate" {...stylex.props(styles.label)}>
+          일자
         </label>
         <input
-          type="datetime-local"
-          id="eventTime"
-          {...register("eventTime")}
+          type="text"
+          id="eventDate"
+          placeholder="0000.00.00"
+          maxLength={10}
+          {...register("eventDate", {
+            onChange: handleDateChange,
+          })}
           {...stylex.props(styles.input)}
         />
-        {errors.eventTime && (
+        {errors.eventDate && (
           <span {...stylex.props(styles.errorText)}>
-            {errors.eventTime.message}
+            {errors.eventDate.message}
+          </span>
+        )}
+      </div>
+
+      <div {...stylex.props(styles.formGroup)}>
+        <label {...stylex.props(styles.label)}>시간</label>
+        <div {...stylex.props(styles.timeWrapper)}>
+          <input
+            type="text"
+            placeholder="00:00"
+            maxLength={5}
+            {...register("startTime", {
+              onChange: (e) => handleTimeChange(e, "startTime"),
+            })}
+            {...stylex.props(styles.timeInput)}
+          />
+          <span {...stylex.props(styles.timeSeparator)}>~</span>
+          <input
+            type="text"
+            placeholder="00:00"
+            maxLength={5}
+            {...register("endTime", {
+              onChange: (e) => handleTimeChange(e, "endTime"),
+            })}
+            {...stylex.props(styles.timeInput)}
+          />
+        </div>
+        {(errors.startTime || errors.endTime) && (
+          <span {...stylex.props(styles.errorText)}>
+            {errors.startTime?.message || errors.endTime?.message}
           </span>
         )}
       </div>
@@ -181,7 +263,7 @@ export function EventForm({ templateId }: EventFormProps) {
 
       <div {...stylex.props(styles.formGroup)}>
         <label htmlFor="invitationMessage" {...stylex.props(styles.label)}>
-          초대 메시지
+          설명
         </label>
         <textarea
           id="invitationMessage"
@@ -198,7 +280,7 @@ export function EventForm({ templateId }: EventFormProps) {
         <input
           type="password"
           id="password"
-          placeholder="4자리 숫자를 입력해주세요"
+          placeholder="비밀번호를 입력해주세요(****)"
           maxLength={4}
           {...register("password")}
           {...stylex.props(styles.input)}
@@ -249,7 +331,7 @@ const styles = stylex.create({
     border: "1px solid #DDE1E6",
     borderRadius: 8,
     fontSize: 16,
-    minHeight: 120,
+    minHeight: 150,
     padding: "12px 16px",
     resize: "vertical",
     width: "100%",
@@ -311,5 +393,24 @@ const styles = stylex.create({
     fontSize: "14px",
     cursor: "pointer",
     whiteSpace: "nowrap",
+  },
+  timeWrapper: {
+    display: "flex",
+    alignItems: "center",
+    gap: "8px",
+  },
+  timeInput: {
+    flex: 1,
+    border: "1px solid #DDE1E6",
+    borderRadius: "8px",
+    fontSize: "16px",
+    width: "80%",
+    padding: "12px 16px",
+    backgroundColor: "#F8F9FA",
+    textAlign: "center",
+  },
+  timeSeparator: {
+    color: "#333",
+    fontSize: "16px",
   },
 });
