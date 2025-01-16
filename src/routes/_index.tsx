@@ -1,7 +1,7 @@
-import { useSectionScroll } from "@/hooks/usePageScroll.ts";
 import stylex from "@stylexjs/stylex";
 import { useState } from "react";
 import { Link } from "react-router";
+import { useSectionScroll } from "../hooks/useSectionScroll";
 
 export default function Page() {
   const [currentSection, setCurrentSection] = useState(0);
