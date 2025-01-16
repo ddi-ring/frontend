@@ -16,7 +16,7 @@ export function ImageUpload({
   return (
     <div {...stylex.props(styles.formGroup)}>
       <label htmlFor="thumbnailImage" {...stylex.props(styles.label)}>
-        이벤트 이미지
+        이미지 업로드
       </label>
       <div {...stylex.props(styles.imageUploadContainer)}>
         <input

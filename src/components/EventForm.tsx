@@ -110,53 +110,50 @@ export function EventForm({ templateId }: EventFormProps) {
           </span>
         )}
       </div>
+      <div {...stylex.props(styles.addressGroup)}>
+        <div {...stylex.props(styles.formGroup)}>
+          <label htmlFor="address" {...stylex.props(styles.label)}>
+            주소
+          </label>
+          <div {...stylex.props(styles.inputWrapper)}>
+            <input
+              type="text"
+              id="address"
+              placeholder="주소"
+              readOnly
+              {...register("address")}
+              {...stylex.props(styles.input)}
+            />
+            <button
+              type="button"
+              onClick={() => setIsOpen(true)}
+              {...stylex.props(styles.searchButton)}
+            >
+              주소 찾기
+            </button>
+          </div>
+          <AddressSearch
+            isOpen={isOpen}
+            onClose={() => setIsOpen(false)}
+            onComplete={handleAddressComplete}
+            isScriptLoaded={isScriptLoaded}
+          />
+          {errors.address && (
+            <span {...stylex.props(styles.errorText)}>
+              {errors.address.message}
+            </span>
+          )}
+        </div>
 
-      <div {...stylex.props(styles.formGroup)}>
-        <label htmlFor="address" {...stylex.props(styles.label)}>
-          주소
-        </label>
-        <div {...stylex.props(styles.inputWrapper)}>
+        <div {...stylex.props(styles.addressDetailGroup)}>
           <input
             type="text"
-            id="address"
-            placeholder="주소를 입력하세요"
-            readOnly
-            {...register("address")}
+            id="addressDetail"
+            placeholder="상세 주소를 입력하세요"
+            {...register("addressDetail")}
             {...stylex.props(styles.input)}
           />
-          <button
-            type="button"
-            onClick={() => setIsOpen(true)}
-            {...stylex.props(styles.searchButton)}
-          >
-            주소 찾기
-          </button>
         </div>
-        {errors.address && (
-          <span {...stylex.props(styles.errorText)}>
-            {errors.address.message}
-          </span>
-        )}
-      </div>
-
-      <AddressSearch
-        isOpen={isOpen}
-        onClose={() => setIsOpen(false)}
-        onComplete={handleAddressComplete}
-        isScriptLoaded={isScriptLoaded}
-      />
-
-      <div {...stylex.props(styles.formGroup)}>
-        <label htmlFor="addressDetail" {...stylex.props(styles.label)}>
-          상세 주소
-        </label>
-        <input
-          type="text"
-          id="addressDetail"
-          placeholder="상세 주소를 입력하세요"
-          {...register("addressDetail")}
-          {...stylex.props(styles.input)}
-        />
       </div>
 
       <div {...stylex.props(styles.formGroup)}>
@@ -222,7 +219,7 @@ export function EventForm({ templateId }: EventFormProps) {
         disabled={isSubmitting}
         {...stylex.props(styles.submitButton)}
       >
-        {isSubmitting ? "처리중..." : "다음으로"}
+        카드 생성하기
       </button>
     </form>
   );
@@ -274,7 +271,6 @@ const styles = stylex.create({
     cursor: "pointer",
     fontSize: 16,
     fontWeight: "bold",
-    marginTop: 12,
     padding: "16px",
     width: "100%",
     ":disabled": {
@@ -282,7 +278,16 @@ const styles = stylex.create({
       cursor: "not-allowed",
     },
   },
-
+  addressGroup: {
+    display: "flex",
+    flexDirection: "column",
+    gap: 0,
+  },
+  addressDetailGroup: {
+    marginTop: 8,
+    width: "100%",
+    display: "flex",
+  },
   inputWrapper: {
     display: "flex",
     gap: "8px",
