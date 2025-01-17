@@ -1,6 +1,6 @@
+import { Section } from "@/components/Section";
 import stylex from "@stylexjs/stylex";
 import { useState } from "react";
-import { Section } from "../components/Section.tsx";
 import SECTIONS from "../constant/section.ts";
 import { useSectionScroll } from "../hooks/useSectionScroll";
 
