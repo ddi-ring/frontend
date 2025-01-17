@@ -22,10 +22,6 @@ jobs:
       - name: Checkout 🛎️
         uses: actions/checkout@main
 
-      - name: Get Version
-        id: release
-        run: echo "version=$(node -p "require('./package.json').version")" >> "$GITHUB_OUTPUT"
-
       - name: Setup NodeJS
         uses: actions/setup-node@main
         with:
@@ -51,7 +47,7 @@ jobs:
 
       - name: Image Tag
         id: image
-        run: echo "tag=${{ steps.ecr.outputs.registry }}/ddi-ring/frontend:${{ steps.release.outputs.version }}" >> "$GITHUB_OUTPUT"
+        run: echo "tag=${{ steps.ecr.outputs.registry }}/ddi-ring/frontend:latest" >> "$GITHUB_OUTPUT"
 
       - name: Docker Build Builder Stage
         uses: docker/build-push-action@v6
