@@ -14,6 +14,9 @@ importers:
       '@ddi-ring/api':
         specifier: ^0.0.1
         version: 0.0.1(@samchon/openapi@2.3.4)(typescript@5.6.3)
+      '@react-router/express':
+        specifier: ^7.1.2
+        version: 7.1.2(express@4.21.2)(react-router@7.1.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(typescript@5.6.3)
       '@react-router/fs-routes':
         specifier: ^7.1.1
         version: 7.1.1(@react-router/dev@7.1.1(@types/node@22.10.7)(react-router@7.1.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(typescript@5.6.3)(vite@6.0.7(@types/node@22.10.7)))(typescript@5.6.3)
@@ -543,6 +546,17 @@ packages:
       wrangler:
         optional: true
 
+  '@react-router/express@7.1.2':
+    resolution: {integrity: sha512-bOPUfAmMEznd33itisilGAulFBgg0TL9gc9gTr6gcr+b7Kc9gSrKtHDaSSbetG4lVJf+wYgEMZMjqCkpDe87YA==}
+    engines: {node: '>=20.0.0'}
+    peerDependencies:
+      express: ^4.17.1
+      react-router: 7.1.2
+      typescript: ^5.1.0
+    peerDependenciesMeta:
+      typescript:
+        optional: true
+
   '@react-router/fs-routes@7.1.1':
     resolution: {integrity: sha512-FXe4d5sKRwa3Yj1xz4rtnxpmwG1IENr+Jd8fQd4IxbC6u/HJrIURacq1l83cTr62Uerf5N4h3v3pGgDEmmGwcg==}
     engines: {node: '>=20.0.0'}
@@ -558,6 +572,16 @@ packages:
     engines: {node: '>=20.0.0'}
     peerDependencies:
       react-router: 7.1.1
+      typescript: ^5.1.0
+    peerDependenciesMeta:
+      typescript:
+        optional: true
+
+  '@react-router/node@7.1.2':
+    resolution: {integrity: sha512-PYLP0Vg0iE4w8iIHsusjMZx6h2PH2D4xSWQ550bgeW6Gj0JE6haB2HcaThvUyhBnnxZqNOPH335dvn+r76N5gQ==}
+    engines: {node: '>=20.0.0'}
+    peerDependencies:
+      react-router: 7.1.2
       typescript: ^5.1.0
     peerDependenciesMeta:
       typescript:
@@ -2736,6 +2760,14 @@ snapshots:
       - tsx
       - yaml
 
+  '@react-router/express@7.1.2(express@4.21.2)(react-router@7.1.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(typescript@5.6.3)':
+    dependencies:
+      '@react-router/node': 7.1.2(react-router@7.1.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(typescript@5.6.3)
+      express: 4.21.2
+      react-router: 7.1.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+    optionalDependencies:
+      typescript: 5.6.3
+
   '@react-router/fs-routes@7.1.1(@react-router/dev@7.1.1(@types/node@22.10.7)(react-router@7.1.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(typescript@5.6.3)(vite@6.0.7(@types/node@22.10.7)))(typescript@5.6.3)':
     dependencies:
       '@react-router/dev': 7.1.1(@types/node@22.10.7)(react-router@7.1.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(typescript@5.6.3)(vite@6.0.7(@types/node@22.10.7))
@@ -2744,6 +2776,16 @@ snapshots:
       typescript: 5.6.3
 
   '@react-router/node@7.1.1(react-router@7.1.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(typescript@5.6.3)':
+    dependencies:
+      '@mjackson/node-fetch-server': 0.2.0
+      react-router: 7.1.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      source-map-support: 0.5.21
+      stream-slice: 0.1.2
+      undici: 6.21.0
+    optionalDependencies:
+      typescript: 5.6.3
+
+  '@react-router/node@7.1.2(react-router@7.1.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(typescript@5.6.3)':
     dependencies:
       '@mjackson/node-fetch-server': 0.2.0
       react-router: 7.1.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
