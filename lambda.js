@@ -2,8 +2,7 @@ import sls from "@codegenie/serverless-express";
 import compression from "compression";
 import express from "express";
 import helmet from "helmet";
-
-const BUILD_PATH = "./build/server/index.js";
+import { entry } from "./build/server/index.js";
 
 const app = express();
 
@@ -15,7 +14,7 @@ app.use(
   express.static("build/client/assets", { immutable: true, maxAge: "1y" })
 );
 app.use(express.static("build/client", { maxAge: "1h" }));
-app.use(await import(BUILD_PATH).then((mod) => mod.app));
+app.use(entry.module.default);
 
 const err_body = `<!doctype html>
 <html lang="en">
