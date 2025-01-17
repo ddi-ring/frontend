@@ -1,0 +1,9 @@
+.github
+.idea
+.vscode
+build
+.node_modules
+.gitignore
+.npmrc
+eslint.config.js
+README.md
