@@ -3,7 +3,7 @@ FROM  node:20-alpine AS builder
 WORKDIR /usr/src/app
 
 COPY  package*.json pnpm*.json tsconfig*.json ./
-RUN corepack enable && corepack install pnpm@latest && pnpm install --frozen-lockfile
+RUN corepack enable && corepack use pnpm && pnpm install --frozen-lockfile
 
 COPY . .
 

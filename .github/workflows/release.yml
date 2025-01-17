@@ -7,9 +7,6 @@ permissions:
   id-token: write # aws 인증에 필요
   packages: read # github package에 필요
 
-env:
-  NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
 concurrency:
   group: release
   cancel-in-progress: false
@@ -26,8 +23,9 @@ jobs:
         uses: actions/setup-node@main
         with:
           node-version: 20
-          registry-url: https://npm.pkg.github.com/
-          scope: "@ddi-ring"
+
+      - name: Config Set NPM Registry
+        run: echo "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}" >> .npmrc
 
       - name: Configure AWS credentials 🔑
         uses: aws-actions/configure-aws-credentials@main
