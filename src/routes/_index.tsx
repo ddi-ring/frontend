@@ -1,13 +1,39 @@
-import { Link } from "react-router";
+import { Section } from "@/components/Section";
+import stylex from "@stylexjs/stylex";
+import { useState } from "react";
+import SECTIONS from "../constant/section.ts";
+import { useSectionScroll } from "../hooks/useSectionScroll";
 
 export default function Page() {
+  const [currentSection, setCurrentSection] = useState(0);
+  const containerRef = useSectionScroll({
+    totalSections: 4,
+    currentSection,
+    onSectionChange: setCurrentSection,
+  });
+
   return (
-    <main>
-      <p>초대의 시작, 설렘의 울림</p>
-      <h1>띠링</h1>
-      <img alt="메인 이미지" />
-      <p>{`간편하게 만드는 나만의 초대장, \n지금 띠링하세요!`}</p>
-      <Link to="/create/template">초대 카드 만들기</Link>
-    </main>
+    <div {...stylex.props(styles.container)} ref={containerRef}>
+      <div
+        {...stylex.props(styles.sectionsContainer)}
+        style={{ transform: `translateY(-${currentSection * 100}%)` }}
+      >
+        {SECTIONS.map((section, index) => (
+          <Section key={`${index}-${section.title}`} section={section} />
+        ))}
+      </div>
+    </div>
   );
 }
+
+const styles = stylex.create({
+  container: {
+    height: "100vh",
+    overflow: "hidden",
+    position: "relative",
+  },
+  sectionsContainer: {
+    height: "100%",
+    transition: "transform 0.8s ease-in-out",
+  },
+});

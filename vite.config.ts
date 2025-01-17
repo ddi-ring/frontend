@@ -1,6 +1,8 @@
 import { reactRouter } from "@react-router/dev/vite";
 import { defineConfig } from "vite";
 import styleX from "vite-plugin-stylex";
+import tsconfigPaths from "vite-tsconfig-paths";
+
 
 export default defineConfig(({ isSsrBuild }) => ({
   build: {
@@ -8,5 +10,5 @@ export default defineConfig(({ isSsrBuild }) => ({
       ? { input: { server: "server/app.js" } }
       : undefined,
   },
-  plugins: [reactRouter(), styleX()],
+  plugins: [reactRouter(), styleX(), tsconfigPaths()],
 }));
