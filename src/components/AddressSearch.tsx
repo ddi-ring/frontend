@@ -1,10 +1,36 @@
+interface DaumPostcodeData {
+  address: string;
+  addressType: string;
+  bname: string;
+  buildingName: string;
+  zonecode: string;
+}
+
+interface DaumPostcode {
+  new (options: {
+    oncomplete: (data: DaumPostcodeData) => void;
+    width: string;
+    height: string;
+  }): {
+    embed: (element: HTMLElement | string) => void;
+  };
+}
+
+declare global {
+  interface Window {
+    daum: {
+      Postcode: DaumPostcode;
+    };
+  }
+}
+
 import * as stylex from "@stylexjs/stylex";
 import { useEffect } from "react";
 
 interface AddressSearchProps {
   isOpen: boolean;
   onClose: () => void;
-  onComplete: (data: any) => void;
+  onComplete: (data: DaumPostcodeData) => void;
   isScriptLoaded: boolean;
 }
 
@@ -43,7 +69,12 @@ export function AddressSearch({
       >
         <div {...stylex.props(styles.modalHeader)}>
           <h2 {...stylex.props(styles.modalTitle)}>주소 검색</h2>
-          <button onClick={onClose} {...stylex.props(styles.closeButton)}>
+          <button
+            type="button"
+            aria-label="닫기"
+            onClick={onClose}
+            {...stylex.props(styles.closeButton)}
+          >
             ✕
           </button>
         </div>
