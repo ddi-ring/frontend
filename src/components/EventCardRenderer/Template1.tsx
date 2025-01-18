@@ -1,14 +1,19 @@
+import { formatTime } from "@/utils/date";
 import stylex from "@stylexjs/stylex";
 import { format } from "date-fns";
 
 export function Template1({
   address,
-  eventTime,
+  eventDate,
+  eventEndTime,
+  eventStartTime,
   invitationMessage,
   title,
 }: {
   address: string;
-  eventTime: Date;
+  eventDate: string;
+  eventEndTime: string;
+  eventStartTime: string;
   invitationMessage: string;
   title: string;
 }) {
@@ -26,7 +31,7 @@ export function Template1({
       <p
         {...stylex.props(styles.date)}
         style={{ marginTop: 30 }}
-      >{`${format(eventTime, "yyyy년 MM월 dd일 HH시 mm분")}\n${address}`}</p>
+      >{`${format(new Date(eventDate), "yyyy년 MM월 dd일")}\n${formatTime(eventStartTime)} - ${formatTime(eventEndTime)}\n${address}`}</p>
       <p {...stylex.props(styles.message)} style={{ marginTop: 194 }}>
         {invitationMessage}
       </p>
@@ -41,7 +46,7 @@ const styles = stylex.create({
     color: "white",
     minHeight: 844,
     padding: 20,
-    whiteSpace: "pre",
+    whiteSpace: "pre-line",
     width: "100%",
   },
   title: {
