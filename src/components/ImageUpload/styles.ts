@@ -17,8 +17,11 @@ export const styles = stylex.create({
     color: "#333",
   },
   imageCount: {
+    height: "50px",
+    display: "flex",
+    alignItems: "center",
     fontSize: "14px",
-    color: "#666",
+    color: "#FF7D20",
   },
   imageContainer: {
     display: "flex",
@@ -31,12 +34,11 @@ export const styles = stylex.create({
     paddingBottom: "4px",
   },
   uploadBox: {
-    width: "100px",
-    height: "100px",
+    width: "130px",
+    height: "50px",
     border: "1px solid #DDE1E6",
     borderRadius: "8px",
     display: "flex",
-    flexDirection: "column",
     alignItems: "center",
     justifyContent: "center",
     gap: "4px",
@@ -44,9 +46,15 @@ export const styles = stylex.create({
     flexShrink: 0,
     backgroundColor: "#F8F9FA",
   },
-  galleryIcon: {
+  deleteBox: {
+    display: "flex",
+    alignItems: "center",
+    gap: 8,
+  },
+  icon: {
     width: 24,
     height: 24,
+    cursor: "pointer",
   },
   imageInput: {
     cursor: "pointer",
@@ -60,21 +68,9 @@ export const styles = stylex.create({
   uploadText: (isHovered: boolean) => ({
     fontSize: "12px",
     marginTop: "4px",
-    color: isHovered ? "#FF731D" : "#666",
+    color: isHovered ? "#FF731D" : "#000000",
   }),
-  imagePreview: {
-    width: "100px",
-    height: "100px",
-    borderRadius: "8px",
-    overflow: "hidden",
-    flexShrink: 0,
-    backgroundColor: "#F8F9FA",
-  },
-  "imagePreview img": {
-    width: "100%",
-    height: "100%",
-    objectFit: "cover",
-  },
+
   errorText: {
     color: "#E53E3E",
     fontSize: "12px",

@@ -11,16 +11,19 @@ export function ImageUpload({
   error,
 }: ImageUploadProps) {
   const [previewUrls, setPreviewUrls] = useState<string[]>([]);
+  const [fileName, setFileName] = useState<string>("");
   const [isHovered, setIsHovered] = useState(false);
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     onClearError();
 
     const files = e.target.files;
+
     if (!files) {
       return;
     }
 
+    setFileName(files[0].name);
     const newPreviewUrls = Array.from(files).map((file) =>
       URL.createObjectURL(file),
     );
@@ -30,15 +33,26 @@ export function ImageUpload({
   return (
     <div {...stylex.props(styles.formGroup)}>
       <div {...stylex.props(styles.labelContainer)}>
-        <label {...stylex.props(styles.label)}>이미지 업로드</label>
-        <span {...stylex.props(styles.imageCount)}>{previewUrls.length}/5</span>
+        <p {...stylex.props(styles.label)}>이미지 업로드</p>
       </div>
 
-      <div {...stylex.props(styles.imageContainer)}>
+      {fileName ? (
+        <div {...stylex.props(styles.deleteBox)}>
+          <span {...stylex.props(styles.imageCount)}>{fileName}</span>
+          <img
+            src={`${ASSET_URL}/ic_delete.svg`}
+            alt="delete"
+            {...stylex.props(styles.icon)}
+            onClick={() => {
+              setFileName("");
+              setPreviewUrls([]);
+            }}
+          />
+        </div>
+      ) : (
         <div {...stylex.props(styles.uploadBox)}>
           <input
             type="file"
-            multiple
             id="thumbnailImage"
             accept={ACCEPTED_IMAGE_TYPES.join(",")}
             {...register}
@@ -59,15 +73,7 @@ export function ImageUpload({
             이미지 추가
           </span>
         </div>
-
-        <div {...stylex.props(styles.previewScroll)}>
-          {previewUrls.map((url, index) => (
-            <div key={url} {...stylex.props(styles.imagePreview)}>
-              <img src={url} alt={`Preview ${index + 1}`} />
-            </div>
-          ))}
-        </div>
-      </div>
+      )}
 
       {error && <span {...stylex.props(styles.errorText)}>{error}</span>}
     </div>

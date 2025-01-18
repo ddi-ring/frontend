@@ -1,7 +1,9 @@
 import Header from "@/components/Header";
 import { templates } from "@/constant/template";
+import { thumbs } from "@/constant/thumbnail.ts";
 import * as stylex from "@stylexjs/stylex";
 import { useNavigate } from "react-router";
+import type { Route } from "./+types/create.template._index";
 
 export default function Page() {
   const navigate = useNavigate();
@@ -11,16 +13,17 @@ export default function Page() {
       <Header title={"카드 디자인 선택"} />
       <main {...stylex.props(styles.main)}>
         <ul {...stylex.props(styles.cardList)}>
-          {Object.values(templates).map((item) => (
+          {Object.values(thumbs).map((item) => (
             <li
               key={item.id}
               onClick={() => navigate(`/create/template/${item.id}/showcase`)}
               {...stylex.props(styles.cardItem)}
             >
               <img
-                {...stylex.props(styles.cardItemThumbnail)}
                 alt={item.title}
                 src={item.thumbnailImageUrl}
+                {...stylex.props(styles.cardItemThumbnail)}
+
               />
               <p>{item.title}</p>
             </li>
@@ -57,7 +60,7 @@ const styles = stylex.create({
     backgroundColor: "#f2f4f8",
     borderRadius: 12,
     minHeight: 216,
-    objectFit: "cover",
+    objectFit: "contain ",
     width: "100%",
   },
 });
