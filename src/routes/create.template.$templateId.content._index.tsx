@@ -1,22 +1,13 @@
 import { EventForm } from "@/components/EventForm.tsx";
-import { useState } from "react";
-import type { Route } from "./+types/create.template.$templateId.content._index";
-
 import Header from "@/components/Header";
+import ddi from "@ddi-ring/api";
 import * as stylex from "@stylexjs/stylex";
+import { useState } from "react";
+import { useNavigate } from "react-router";
+import type { Route } from "./+types/create.template.$templateId.content";
 
-export async function loader({ params }: Route.LoaderArgs) {
-  return {
-    template: {
-      id: params.templateId,
-      title: "이벤트 초대장",
-    },
-  };
-}
-
-export default function Page({
-  loaderData: { template },
-}: Route.ComponentProps) {
+export default function Page({ params: { templateId } }: Route.ComponentProps) {
+  const navigate = useNavigate();
   const [isSelected, setIsSelected] = useState(false);
 
   return (
@@ -26,14 +17,35 @@ export default function Page({
           <Header title="내용 입력" />
 
           <main {...stylex.props(styles.main)}>
-            <EventForm templateId={template.id} />
+            <EventForm
+              onSubmit={async (fields) => {
+                const result = await ddi.functional.event_cards.create(
+                  {
+                    host: "https://api.ddi-ring.com",
+                  },
+                  {
+                    address_detail: fields.addressDetail ?? "",
+                    address: fields.address,
+                    event_time: fields.eventDate,
+                    invitation_message: fields.invitationMessage ?? "",
+                    password: fields.password,
+                    template_key: templateId,
+                    title: fields.title,
+                  }
+                );
+
+                if (result.status === 201) {
+                  navigate(`/card/${result.data.event_card_id}`);
+                }
+              }}
+            />
           </main>
         </div>
       ) : (
         <div
           {...stylex.props(
             styles.container,
-            !isSelected && styles.selectedContainer,
+            !isSelected && styles.selectedContainer
           )}
         >
           선택한 템플릿 이미지가 보일 예정

@@ -3,27 +3,22 @@ import { type EventFormData, eventFormSchema } from "@/schmas/event-form.ts";
 // import { createEventCard, uploadEventCardFile } from "@ddi-ring/api";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as stylex from "@stylexjs/stylex";
-import { useState } from "react";
-import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router";
+import { SubmitHandler, useForm } from "react-hook-form";
 import { useAddressSearch } from "../hooks/useAddressSearch";
 import { AddressSearch } from "./AddressSearch";
 import { ImageUpload } from "./ImageUpload";
 
 interface EventFormProps {
-  templateId: string;
+  onSubmit: SubmitHandler<EventFormData>;
 }
 
-export function EventForm({ templateId }: EventFormProps) {
-  const navigate = useNavigate();
-  const [isSubmitting, setIsSubmitting] = useState(false);
+export function EventForm({ onSubmit }: EventFormProps) {
   const { isOpen, setIsOpen, isScriptLoaded } = useAddressSearch();
 
   const {
     register,
     handleSubmit,
-    formState: { errors },
-    setError,
+    formState: { errors, isSubmitting },
     clearErrors,
     setValue,
   } = useForm<EventFormData>({
@@ -79,7 +74,7 @@ export function EventForm({ templateId }: EventFormProps) {
 
   const handleTimeChange = (
     e: React.ChangeEvent<HTMLInputElement>,
-    field: "startTime" | "endTime",
+    field: "startTime" | "endTime"
   ) => {
     let value = e.target.value;
 
@@ -104,40 +99,6 @@ export function EventForm({ templateId }: EventFormProps) {
     }
 
     setValue(field, value);
-  };
-
-  const onSubmit = async (data: EventFormData) => {
-    try {
-      setIsSubmitting(true);
-
-      // let thumbnailImageId = undefined;
-      // if (data.thumbnailImage?.length) {
-      //   const uploadResult = await uploadEventCardFile({
-      //     file: data.thumbnailImage[0],
-      //   });
-      //   thumbnailImageId = uploadResult.id;
-      // }
-      //
-      // await createEventCard({
-      //   template_key: templateId,
-      //   thumbnail_image_id: thumbnailImageId,
-      //   title: data.title,
-      //   address: data.address,
-      //   address_detail: data.addressDetail,
-      //   invitation_message: data.invitationMessage,
-      //   event_time: new Date(data.eventDate).toISOString(),
-      //   password: data.password,
-      // });
-
-      navigate(`/create/template/${templateId}/preview`);
-    } catch (error) {
-      console.error("Form submission error:", error);
-      setError("root", {
-        message: "초대장 생성 중 오류가 발생했습니다",
-      });
-    } finally {
-      setIsSubmitting(false);
-    }
   };
 
   return (
