@@ -1,27 +1,24 @@
 import stylex from "@stylexjs/stylex";
 import { format } from "date-fns";
-import "./fonts.css";
 
 export function Template1({
   address,
-  backgroundImageUrl,
   eventTime,
   invitationMessage,
   title,
 }: {
   address: string;
-  backgroundImageUrl: string;
   eventTime: Date;
   invitationMessage: string;
   title: string;
 }) {
+  const backgroundImageUrl =
+    "https://resource.ddi-ring.com/templates/template1_bg.png";
+
   return (
     <div
       {...stylex.props(styles.container)}
-      style={{
-        backgroundColor: "#004C3F",
-        backgroundImage: `url(${backgroundImageUrl})`,
-      }}
+      style={{ backgroundImage: `url(${backgroundImageUrl})` }}
     >
       <h1 {...stylex.props(styles.title)} style={{ marginTop: 318 }}>
         {title}
@@ -39,6 +36,7 @@ export function Template1({
 
 const styles = stylex.create({
   container: {
+    backgroundColor: "#004C3F",
     backgroundSize: "cover",
     color: "white",
     minHeight: "100vh",
