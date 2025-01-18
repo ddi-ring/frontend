@@ -13,14 +13,18 @@ export const floating = stylex.keyframes({
 });
 
 export const styles = stylex.create({
-  section: {
+  section: (PNG_URL: string) => ({
     alignItems: "center",
     display: "flex",
     flexDirection: "column",
     height: "100vh",
     justifyContent: "center",
     padding: "0 20px",
-  },
+    backgroundImage: `url(${PNG_URL && PNG_URL}/mainSection.png)`,
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+    backgroundRepeat: "no-repeat",
+  }),
   floatContainer: {
     display: "flex",
     alignItems: "center",
@@ -39,7 +43,7 @@ export const styles = stylex.create({
     fontWeight: 600,
   },
   subtitle: {
-    color: "#191919",
+    color: "#ffffff",
     fontSize: 14,
     paddingBottom: 12,
     fontWeight: 600,
@@ -47,15 +51,14 @@ export const styles = stylex.create({
   mainImage: {
     width: 100,
     height: 59,
-    marginBottom: 56,
+    marginBottom: 24,
   },
   logoImage: {
-    width: 330,
-    height: 260,
-    margin: "80px 0px",
+    width: 430,
+    height: 420,
   },
   description: {
-    color: "#191919",
+    color: "#ffffff",
     fontSize: 16,
     textAlign: "center",
     lineHeight: "24px",
@@ -86,13 +89,13 @@ export const styles = stylex.create({
     paddingBottom: "28px",
   },
   linkButton: {
+    marginTop: 32,
     backgroundColor: "#FF731D",
     borderRadius: 8,
     color: "#fff",
     textAlign: "center",
     fontSize: 16,
     fontWeight: 600,
-    marginTop: 32,
     width: "90%",
     padding: "16px 32px",
     textDecoration: "none",

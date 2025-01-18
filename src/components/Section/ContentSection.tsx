@@ -4,7 +4,7 @@ import type { ContentSection as ContentSectionType } from "./types";
 
 export function ContentSection({ section }: { section: ContentSectionType }) {
   return (
-    <section {...stylex.props(styles.section)}>
+    <section {...stylex.props(styles.section(""))}>
       <h2 {...stylex.props(styles.sectionTitle)}>{section.title}</h2>
       <p {...stylex.props(styles.sectionDescription)}>{section.description}</p>
       <div {...stylex.props(styles.sectionSubDescription)}>

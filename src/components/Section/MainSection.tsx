@@ -1,4 +1,4 @@
-import { ASSET_URL } from "@/constant/assetUrl.ts";
+import { ASSET_URL, PNG_URL } from "@/constant/assetUrl.ts";
 import stylex from "@stylexjs/stylex";
 import { Link } from "react-router";
 import { styles } from "./styles";
@@ -6,16 +6,16 @@ import type { MainSection as MainSectionType } from "./types";
 
 export function MainSection({ section }: { section: MainSectionType }) {
   return (
-    <section {...stylex.props(styles.section)}>
+    <section {...stylex.props(styles.section(PNG_URL))}>
       <p {...stylex.props(styles.subtitle)}>{section.subtitle}</p>
       <img
-        src="/images/logoTitle.png"
+        src={`${PNG_URL}/logo.png`}
         alt="띠링 로고"
         {...stylex.props(styles.mainImage)}
       />
       <p {...stylex.props(styles.description)}>{section.description}</p>
       <img
-        src="/images/logo.png"
+        src={`${PNG_URL}/mainImage.png`}
         alt="띠링 캐릭터"
         {...stylex.props(styles.logoImage)}
       />
