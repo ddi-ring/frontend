@@ -1,5 +1,6 @@
 import { styles } from "@/components/ImageUpload/styles.ts";
 import type { ImageUploadProps } from "@/components/ImageUpload/types.ts";
+import { ASSET_URL } from "@/constant/assetUrl.ts";
 import { ACCEPTED_IMAGE_TYPES } from "@/constant/file.ts";
 import * as stylex from "@stylexjs/stylex";
 import { useState } from "react";
@@ -10,6 +11,7 @@ export function ImageUpload({
   error,
 }: ImageUploadProps) {
   const [previewUrls, setPreviewUrls] = useState<string[]>([]);
+  const [isHovered, setIsHovered] = useState(false);
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     onClearError();
@@ -46,11 +48,7 @@ export function ImageUpload({
             }}
             {...stylex.props(styles.imageInput)}
           />
-          <img
-            src="/gallery.svg"
-            alt="갤러리 아이콘"
-            {...stylex.props(styles.galleryIcon)}
-          />
+          <img src={`${ASSET_URL}/ic_image.svg`} alt="갤러리 아이콘" />
           <span {...stylex.props(styles.uploadText)}>이미지 추가</span>
         </div>
 

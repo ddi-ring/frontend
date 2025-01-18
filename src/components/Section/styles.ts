@@ -1,5 +1,17 @@
 import stylex from "@stylexjs/stylex";
 
+export const floating = stylex.keyframes({
+  "0%": {
+    transform: "translate(0, 0px)",
+  },
+  "50%": {
+    transform: "translate(0, 5px)",
+  },
+  "100%": {
+    transform: "translate(0, 0px)",
+  },
+});
+
 export const styles = stylex.create({
   section: {
     alignItems: "center",
@@ -8,6 +20,23 @@ export const styles = stylex.create({
     height: "100vh",
     justifyContent: "center",
     padding: "0 20px",
+  },
+  floatContainer: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    position: "fixed",
+    bottom: 50,
+    animationName: floating,
+    animationDuration: "1.5s",
+    animationTimingFunction: "ease-in-out",
+    animationIterationCount: "infinite",
+  },
+  floatText: {
+    marginLeft: 8,
+    color: "#FF7D20",
+    fontSize: 14,
+    fontWeight: 600,
   },
   subtitle: {
     color: "#191919",
