@@ -8,10 +8,14 @@ import {
   Scripts,
   ScrollRestoration,
 } from "react-router";
+import { favicons } from "./constant/favicon";
 import stylesheet from "./index.css?url";
 
 export function links() {
-  return [{ rel: "stylesheet", href: stylesheet }] satisfies LinkDescriptor[];
+  return [
+    ...favicons,
+    { rel: "stylesheet", href: stylesheet },
+  ] satisfies LinkDescriptor[];
 }
 
 export function Layout({ children }: { children: ReactNode }) {
