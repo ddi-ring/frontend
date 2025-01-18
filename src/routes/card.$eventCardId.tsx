@@ -1,7 +1,7 @@
 import { CircularIconButton } from "@/components/IconButton";
 import { flex } from "@/styles/flex";
 import stylex from "@stylexjs/stylex";
-import { useNavigate } from "react-router";
+import { Outlet, useNavigate } from "react-router";
 import { Route } from "./+types/card.$eventCardId";
 
 export async function loader() {
@@ -32,10 +32,15 @@ export default function Page({ loaderData, params }: Route.ComponentProps) {
         <CircularIconButton
           alt="방명록"
           src="/messages.svg"
-          onClick={() => navigate(`/card/${params.cardId}/message`)}
+          onClick={() => {
+            navigate(`/card/${params.eventCardId}/guestbook`, {
+              viewTransition: true,
+            });
+          }}
         />
         <ShareIconButton />
       </div>
+      <Outlet />
     </main>
   );
 }
