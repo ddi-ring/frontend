@@ -1,5 +1,6 @@
 import { PUBLIC_URL } from "@/constant/assetUrl.ts";
 import stylex from "@stylexjs/stylex";
+import { Link } from "react-router";
 import { styles } from "./styles";
 import type { ContentSection as ContentSectionType } from "./types";
 
@@ -24,6 +25,14 @@ export function ContentSection({ section }: { section: ContentSectionType }) {
         alt="띠링 캐릭터"
         {...stylex.props(styles.logoImage)}
       />
+      {section.button && (
+        <Link
+          to={section.button.link}
+          {...stylex.props(styles.linkButton(true))}
+        >
+          {section.button.text}
+        </Link>
+      )}
     </section>
   );
 }

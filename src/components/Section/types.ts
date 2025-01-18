@@ -17,6 +17,10 @@ export interface ContentSection extends SectionBase {
   type: "content";
   image: string;
   subDescription: string;
+  button?: {
+    text: string;
+    link: string;
+  };
 }
 
 export type SectionType = MainSection | ContentSection;

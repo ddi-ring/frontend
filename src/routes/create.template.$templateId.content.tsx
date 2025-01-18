@@ -29,6 +29,23 @@ export default function Page({ params: { templateId } }: Route.ComponentProps) {
                     type: "gallery_image",
                   },
                 );
+              const data = await ddi.functional.event_cards.create(
+                {
+                  host: "https://api.ddi-ring.com",
+                },
+                {
+                  address_detail: fields.addressDetail ?? "",
+                  address: fields.address,
+                  event_date: fields.eventDate.replaceAll(".", "-"),
+                  event_end_time: `${fields.endTime}:00`,
+                  event_start_time: `${fields.startTime}:00`,
+                  invitation_message: fields.invitationMessage ?? "",
+                  password: fields.password,
+                  template_key: templateId,
+                  title: fields.title,
+                },
+              );
+              navigate(`/card/${data.event_card_id}`);
 
               try {
                 const response = await fetch(presignedData.presigned_url, {
@@ -38,6 +55,8 @@ export default function Page({ params: { templateId } }: Route.ComponentProps) {
                     "Content-Type": file.type,
                   },
                 });
+
+                console.log(response);
 
                 if (!response.ok) {
                   throw new Error(`Upload failed: ${response.statusText}`);
@@ -49,25 +68,6 @@ export default function Page({ params: { templateId } }: Route.ComponentProps) {
                 throw error;
               }
             }
-
-            const data = await ddi.functional.event_cards.create(
-              {
-                host: "https://api.ddi-ring.com",
-              },
-              {
-                address_detail: fields.addressDetail ?? "",
-                address: fields.address,
-                event_date: fields.eventDate.replaceAll(".", "-"),
-                event_end_time: `${fields.endTime}:00`,
-                event_start_time: `${fields.startTime}:00`,
-                invitation_message: fields.invitationMessage ?? "",
-                password: fields.password,
-                template_key: templateId,
-                title: fields.title,
-              },
-            );
-
-            navigate(`/card/${data.event_card_id}`);
           }}
         />
       </main>

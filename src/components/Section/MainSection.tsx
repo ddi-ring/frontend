@@ -24,7 +24,10 @@ export function MainSection({ section }: { section: MainSectionType }) {
         <span {...stylex.props(styles.floatText)}>스크롤 해보세요</span>
       </div>
       {section.button && (
-        <Link to={section.button.link} {...stylex.props(styles.linkButton)}>
+        <Link
+          to={section.button.link}
+          {...stylex.props(styles.linkButton(false))}
+        >
           {section.button.text}
         </Link>
       )}

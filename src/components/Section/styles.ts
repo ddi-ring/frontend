@@ -102,8 +102,9 @@ export const styles = stylex.create({
     lineHeight: "20px",
     paddingBottom: "28px",
   },
-  linkButton: {
-    marginBottom: 50,
+  linkButton: (isContent: boolean) => ({
+    marginTop: isContent && 50,
+    marginBottom: !isContent && 50,
     backgroundColor: "#FF731D",
     borderRadius: 8,
     color: "#fff",
@@ -113,5 +114,5 @@ export const styles = stylex.create({
     width: "90%",
     padding: "16px 32px",
     textDecoration: "none",
-  },
+  }),
 });
