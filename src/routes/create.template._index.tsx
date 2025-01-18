@@ -66,6 +66,7 @@ const styles = stylex.create({
     position: "fixed",
     top: 0,
     width: 430,
+    zIndex: 10,
   },
   headerTitle: {
     fontSize: 18,
@@ -102,9 +103,9 @@ const styles = stylex.create({
     cursor: "pointer",
     flexDirection: "column",
     gap: 8,
-    transition: "transform 0.2s ease-in-out",
+    transition: "transform 0.3s ease",
     ":hover": {
-      transform: "scale(1.05)",
+      transform: "translateY(-10px)",
     },
   },
   cardItemThumbnail: {
@@ -114,9 +115,5 @@ const styles = stylex.create({
     minHeight: 216,
     objectFit: "cover",
     width: "100%",
-    transition: "box-shadow 0.2s ease-in-out",
-    ":hover": {
-      boxShadow: "0 4px 12px rgba(255, 115, 29, 0.3)",
-    },
   },
 });
