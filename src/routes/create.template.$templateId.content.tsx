@@ -50,7 +50,6 @@ export default function Page({ params: { templateId } }: Route.ComponentProps) {
               }
             }
 
-            return;
             const data = await ddi.functional.event_cards.create(
               {
                 host: "https://api.ddi-ring.com",

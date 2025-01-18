@@ -33,7 +33,7 @@ export const styles = stylex.create({
     height: "100vh",
     justifyContent: "center",
     padding: "0 20px",
-    backgroundImage: `url(${PNG_URL}.png)`,
+    backgroundImage: `url(${PNG_URL})`,
     backgroundSize: "cover",
     backgroundPosition: "center",
     backgroundRepeat: "no-repeat",
@@ -43,7 +43,7 @@ export const styles = stylex.create({
     alignItems: "center",
     justifyContent: "center",
     position: "fixed",
-    bottom: 50,
+    bottom: 25,
     animationName: floating,
     animationDuration: "1.5s",
     animationTimingFunction: "ease-in-out",
@@ -67,8 +67,9 @@ export const styles = stylex.create({
     marginBottom: 24,
   },
   logoImage: {
-    width: 390,
-    height: 420,
+    marginLeft: 20,
+    width: 360,
+    height: 340,
   },
   description: {
     color: "#ffffff",
@@ -102,7 +103,7 @@ export const styles = stylex.create({
     paddingBottom: "28px",
   },
   linkButton: {
-    marginTop: 32,
+    marginBottom: 50,
     backgroundColor: "#FF731D",
     borderRadius: 8,
     color: "#fff",

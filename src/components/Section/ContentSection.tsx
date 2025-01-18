@@ -8,7 +8,9 @@ export function ContentSection({ section }: { section: ContentSectionType }) {
     <section
       {...stylex.props(
         styles.secSection(
-          section.title === "다양한 초대장 템플릿" ? `${PUBLIC_URL}/back` : "",
+          section.title === "다양한 초대장 템플릿"
+            ? `${PUBLIC_URL}/back.png`
+            : "",
         ),
       )}
     >
