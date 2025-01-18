@@ -12,8 +12,8 @@ importers:
         specifier: ^4.16.0
         version: 4.16.0
       '@ddi-ring/api':
-        specifier: ^0.0.6
-        version: 0.0.6(@samchon/openapi@2.4.0)(typescript@5.6.3)
+        specifier: ^0.0.8
+        version: 0.0.8(@samchon/openapi@2.4.0)(typescript@5.6.3)
       '@hookform/resolvers':
         specifier: ^3.10.0
         version: 3.10.0(react-hook-form@7.54.2(react@18.3.1))
@@ -339,8 +339,8 @@ packages:
     resolution: {integrity: sha512-TlvAHQysphN3OW6Ziz6AD2DnN9IIy/KkKNImZwMJpwGHHqLATi/9hMg8H8VBRg2L15pGt8ad3R6j6mfvHVWrCg==}
     engines: {node: '>=18'}
 
-  '@ddi-ring/api@0.0.6':
-    resolution: {integrity: sha512-J7tyMNkg75dA7akjcfGjAiBpI+oTaHTwFxfnlLD5c4SQfk6BJKoRLJo3hi05ZbfqNwTIVainUAs01TuArRBEWA==, tarball: https://npm.pkg.github.com/download/@ddi-ring/api/0.0.6/9a7cceee92517c3ac4e03079058a710dcc2da329}
+  '@ddi-ring/api@0.0.8':
+    resolution: {integrity: sha512-p3ZMoOB4KiRn7W/3plJQ9Xi8T9MTj/xMVt1yyIyrb9bKSGWdKhbPEhdrg8gvVL/JmAyjJPMGWDzCuxeXcOOaXg==, tarball: https://npm.pkg.github.com/download/@ddi-ring/api/0.0.8/a9968854dd2a6d889c74469325fd3072c0c406c7}
 
   '@esbuild/aix-ppc64@0.24.2':
     resolution: {integrity: sha512-thpVCb/rhxE/BnMLQ7GReQLLN8q9qbHmI55F4489/ByVg2aQaQ6kbcLb6FHkocZzQhxc4gx0sCk0tJkKBFzDhA==}
@@ -2677,7 +2677,7 @@ snapshots:
 
   '@codegenie/serverless-express@4.16.0': {}
 
-  '@ddi-ring/api@0.0.6(@samchon/openapi@2.4.0)(typescript@5.6.3)':
+  '@ddi-ring/api@0.0.8(@samchon/openapi@2.4.0)(typescript@5.6.3)':
     dependencies:
       '@nestia/fetcher': 4.6.0(typescript@5.6.3)
       typia: 7.6.0(@samchon/openapi@2.4.0)(typescript@5.6.3)
