@@ -1,5 +1,6 @@
 import stylex from "@stylexjs/stylex";
-import { ComponentProps, ReactNode } from "react";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ComponentProps, ReactNode, useState } from "react";
 import {
   LinkDescriptor,
   Links,
@@ -19,6 +20,8 @@ export function links() {
 }
 
 export function Layout({ children }: { children: ReactNode }) {
+  const [queryClient] = useState(() => new QueryClient());
+
   return (
     <html lang="en">
       <head>
@@ -29,7 +32,9 @@ export function Layout({ children }: { children: ReactNode }) {
         <Links />
       </head>
       <body>
-        <MobileViewport>{children}</MobileViewport>
+        <QueryClientProvider client={queryClient}>
+          <MobileViewport>{children}</MobileViewport>
+        </QueryClientProvider>
         <ScrollRestoration />
         <Scripts />
       </body>

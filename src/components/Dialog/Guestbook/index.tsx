@@ -1,36 +1,39 @@
 import { styles } from "@/components/Dialog/Guestbook/styles.ts";
+import { EventCardCommentDTO } from "@ddi-ring/api/lib/structures/EventCardCommentDTO";
+import { zodResolver } from "@hookform/resolvers/zod";
 import * as stylex from "@stylexjs/stylex";
 import { format } from "date-fns";
-import { useState } from "react";
-
-interface Comment {
-  id: string;
-  username: string;
-  content: string;
-  created_at: string;
-  updated_at: string;
-}
+import { SubmitHandler, useForm } from "react-hook-form";
+import { z } from "zod";
 
 interface GuestbookDialogProps {
-  comments: Comment[];
+  comments: EventCardCommentDTO[];
   onClose: () => void;
+  onSubmit: SubmitHandler<Fields>;
 }
 
-export function GuestbookDialog({ comments, onClose }: GuestbookDialogProps) {
-  const [name, setName] = useState("");
-  const [message, setMessage] = useState("");
+const Fields = z.object({
+  username: z.string().min(1),
+  content: z.string().min(1),
+});
+type Fields = z.infer<typeof Fields>;
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // TODO: 방명록 작성 로직
-  };
+export function GuestbookDialog({
+  comments,
+  onClose,
+  onSubmit,
+}: GuestbookDialogProps) {
+  const { handleSubmit, register } = useForm<Fields>({
+    resolver: zodResolver(Fields),
+  });
 
   return (
     <div {...stylex.props(styles.overlay)}>
       <div {...stylex.props(styles.dialog)}>
         <div {...stylex.props(styles.header)}>
           <h2 {...stylex.props(styles.title)}>
-            방명록 <span {...stylex.props(styles.titleNum)}>5</span>
+            방명록{" "}
+            <span {...stylex.props(styles.titleNum)}>{comments.length}</span>
           </h2>
           <img
             onClick={onClose}
@@ -40,20 +43,21 @@ export function GuestbookDialog({ comments, onClose }: GuestbookDialogProps) {
           />
         </div>
 
-        <form onSubmit={handleSubmit} {...stylex.props(styles.formContainer)}>
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          {...stylex.props(styles.formContainer)}
+        >
           <input
             type="text"
             placeholder="별명"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
             {...stylex.props(styles.input)}
+            {...register("username")}
           />
           <input
             type="text"
             placeholder="댓글 작성하기"
-            value={message}
-            onChange={(e) => setMessage(e.target.value)}
             {...stylex.props(styles.input)}
+            {...register("content")}
           />
           <button type="submit" {...stylex.props(styles.submitButton)}>
             작성

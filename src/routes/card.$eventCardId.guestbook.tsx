@@ -1,25 +1,54 @@
 import { GuestbookDialog } from "@/components/Dialog/Guestbook";
-import { faker } from "@faker-js/faker";
+import ddi from "@ddi-ring/api";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router";
 import { Route } from "./+types/card.$eventCardId.guestbook";
 
-export function loader() {
-  return Promise.resolve({
-    list: Array.from({ length: 5 }, () => ({
-      id: faker.string.uuid(),
-      username: "쫀또기",
-      content: "쫀또기 먹구싶당~~~~~~\n쫀도윽~~쫀또으ㅡㄱ~~~ 쫀도도도도독",
-      created_at: "2025-01-08T04:02:29.116Z",
-      updated_at: "2025-01-08T04:02:29.116Z",
-    })),
-    next: true,
-  });
+function getComments(params: { eventCardId: string }) {
+  return ddi.functional.event_card_comments.paginate(
+    {
+      host: "https://api.ddi-ring.com",
+    },
+    {
+      event_card_id: params.eventCardId,
+    }
+  );
 }
 
-export default function Page({ loaderData }: Route.ComponentProps) {
+export function loader({ params }: Route.LoaderArgs) {
+  return getComments(params);
+}
+
+export default function Page({ loaderData, params }: Route.ComponentProps) {
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
+  const { data: comments } = useQuery({
+    queryKey: ["getComments", params.eventCardId],
+    queryFn: () => getComments(params),
+    initialData: loaderData,
+  });
 
   return (
-    <GuestbookDialog comments={loaderData.list} onClose={() => navigate(-1)} />
+    <GuestbookDialog
+      comments={comments.list}
+      onClose={() => navigate(-1)}
+      onSubmit={async (fields) => {
+        await ddi.functional.event_card_comments.create(
+          {
+            host: "https://api.ddi-ring.com",
+          },
+          {
+            event_card_id: params.eventCardId,
+            username: fields.username,
+            content: fields.content,
+            password: "0000",
+          }
+        );
+
+        queryClient.invalidateQueries({
+          queryKey: ["getComments", params.eventCardId],
+        });
+      }}
+    />
   );
 }
