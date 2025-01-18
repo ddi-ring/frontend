@@ -46,10 +46,14 @@ export default function Page({
         <div
           {...stylex.props(
             styles.container,
-            !isSelected &&
-              styles.selectedContainer(SHOWCASE_URL, template.id, imageHeight),
+            !isSelected && styles.selectedContainer,
           )}
         >
+          <img
+            src={`${SHOWCASE_URL}/showcase${template.id}.png`}
+            alt="bakcgroundImage"
+            {...stylex.props(styles.imageContainer)}
+          />
           <div {...stylex.props(styles.selectContainer)}>
             <button
               type="button"
@@ -89,23 +93,22 @@ const styles = stylex.create({
     minHeight: "100vh",
     backgroundColor: "#fff",
   },
-  selectedContainer: (url: string, id: string, height: string) => ({
+  selectedContainer: {
     display: "flex",
-    height,
-    backgroundImage: `url(${url}/showcase${id}.png)`,
-    backgroundSize: "cover",
     flexDirection: "column",
     alignItems: "center",
     overflowY: "scroll",
     backgroundColor: "#fff",
     position: "relative",
     marginBottom: "80px",
-  }),
+  },
   main: {
     marginTop: 52,
     padding: "24px 16px",
   },
-
+  imageContainer: {
+    width: "100%",
+  },
   selectContainer: {
     display: "flex",
     justifyContent: "center",
