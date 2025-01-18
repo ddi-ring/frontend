@@ -25,6 +25,19 @@ export const styles = stylex.create({
     backgroundPosition: "center",
     backgroundRepeat: "no-repeat",
   }),
+
+  secSection: (PNG_URL: string) => ({
+    alignItems: "center",
+    display: "flex",
+    flexDirection: "column",
+    height: "100vh",
+    justifyContent: "center",
+    padding: "0 20px",
+    backgroundImage: `url(${PNG_URL}.png)`,
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+    backgroundRepeat: "no-repeat",
+  }),
   floatContainer: {
     display: "flex",
     alignItems: "center",
