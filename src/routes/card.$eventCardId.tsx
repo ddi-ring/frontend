@@ -1,8 +1,8 @@
-import { CircularIconButton } from "@/components/IconButton";
+import { ASSET_URL } from "@/constant/assetUrl.ts";
 import { flex } from "@/styles/flex";
 import stylex from "@stylexjs/stylex";
 import { Outlet, useNavigate } from "react-router";
-import { Route } from "./+types/card.$eventCardId";
+import type { Route } from "./+types/card.$eventCardId";
 
 export async function loader() {
   // FIXME(@noahluftyang): 실제 api로 교체하기
@@ -29,9 +29,10 @@ export default function Page({ loaderData, params }: Route.ComponentProps) {
       <div
         {...stylex.props(styles.fixedArea, flex.base("column"), flex.gap(12))}
       >
-        <CircularIconButton
+        <img
+          {...stylex.props(styles.icon)}
           alt="방명록"
-          src="/messages.svg"
+          src={`${ASSET_URL}/ic_message_bubble.svg`}
           onClick={() => {
             navigate(`/card/${params.eventCardId}/guestbook`, {
               viewTransition: true,
@@ -64,9 +65,10 @@ function ShareIconButton() {
   };
 
   return (
-    <CircularIconButton
+    <img
+      {...stylex.props(styles.icon)}
       alt="카드 공유하기"
-      src="/Share_Icon_UIA.svg"
+      src={`${ASSET_URL}/ic_share_bubble.svg`}
       onClick={handleClick}
     />
   );
@@ -77,5 +79,8 @@ const styles = stylex.create({
     bottom: 28,
     position: "fixed",
     right: 16,
+  },
+  icon: {
+    cursor: "pointer",
   },
 });

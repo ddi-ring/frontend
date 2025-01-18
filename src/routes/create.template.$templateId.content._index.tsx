@@ -3,8 +3,9 @@ import { useState } from "react";
 import type { Route } from "./+types/create.template.$templateId.content._index";
 
 import Header from "@/components/Header";
-import { TEMPLATE_URL } from "@/constant/assetUrl.ts";
+import { ASSET_URL, TEMPLATE_URL } from "@/constant/assetUrl.ts";
 import * as stylex from "@stylexjs/stylex";
+import { useNavigate } from "react-router";
 
 export async function loader({ params }: Route.LoaderArgs) {
   return {
@@ -18,8 +19,9 @@ export async function loader({ params }: Route.LoaderArgs) {
 export default function Page({
   loaderData: { template },
 }: Route.ComponentProps) {
-  const [isSelected, setIsSelected] = useState(false);
+  const navigate = useNavigate();
 
+  const [isSelected, setIsSelected] = useState(false);
   return (
     <>
       {isSelected ? (
@@ -37,6 +39,12 @@ export default function Page({
             !isSelected && styles.selectedContainer(TEMPLATE_URL, template.id),
           )}
         >
+          <img
+            onClick={() => navigate(-1)}
+            src={`${ASSET_URL}/ic_arrow_bubble.svg`}
+            alt="back"
+            {...stylex.props(styles.backButton)}
+          />
           <button
             type="button"
             onClick={() => setIsSelected(true)}
@@ -80,6 +88,12 @@ const styles = stylex.create({
     marginTop: 52,
     padding: "24px 16px",
   },
+  backButton: {
+    position: "fixed",
+    top: "20px",
+    left: "150px",
+    cursor: "pointer",
+  },
   selectButton: {
     position: "fixed",
     display: "flex",
@@ -93,7 +107,8 @@ const styles = stylex.create({
     fontSize: 16,
     fontWeight: "bold",
     padding: "16px",
-    width: "200px",
+    width: "calc(100% - 32px)",
+    maxWidth: 400,
     textAlign: "center",
     animationName: floating,
     animationDuration: "1.5s",

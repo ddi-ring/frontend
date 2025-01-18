@@ -1,7 +1,7 @@
 import { flex } from "@/styles/flex";
 import stylex from "@stylexjs/stylex";
 import clsx from "clsx";
-import { ComponentProps, ForwardedRef, forwardRef } from "react";
+import { type ComponentProps, type ForwardedRef, forwardRef } from "react";
 
 export const IconButton = forwardRef(function IconButton(
   {
@@ -14,7 +14,7 @@ export const IconButton = forwardRef(function IconButton(
     ...props
   }: ComponentProps<"button"> &
     Pick<ComponentProps<"img">, "alt" | "height" | "src" | "width">,
-  ref: ForwardedRef<HTMLButtonElement>
+  ref: ForwardedRef<HTMLButtonElement>,
 ) {
   const css = stylex.props(flex.base(), flex.center, styles.base);
 
@@ -33,7 +33,7 @@ export const IconButton = forwardRef(function IconButton(
 
 export const CircularIconButton = forwardRef(function CircularIconButton(
   props: ComponentProps<typeof IconButton>,
-  ref: ForwardedRef<HTMLButtonElement>
+  ref: ForwardedRef<HTMLButtonElement>,
 ) {
   return <IconButton ref={ref} {...stylex.props(styles.circle)} {...props} />;
 });
@@ -43,8 +43,5 @@ const styles = stylex.create({
     backgroundColor: "#FFFFFF",
     border: "1px solid #EEEEEE",
     padding: 14,
-  },
-  circle: {
-    borderRadius: "50%",
   },
 });
