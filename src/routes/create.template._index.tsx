@@ -1,24 +1,9 @@
 import Header from "@/components/Header";
-import { faker } from "@faker-js/faker";
+import { templates } from "@/constant/template";
 import * as stylex from "@stylexjs/stylex";
 import { useNavigate } from "react-router";
-import type { Route } from "./+types/create.template._index";
 
-export async function loader() {
-  // FIXME(@noahluftyang): 실제 api로 교체하기
-  return {
-    list: Array.from(
-      { length: faker.number.int({ min: 10, max: 20 }) },
-      () => ({
-        id: faker.string.uuid(),
-        title: faker.word.words(),
-        thumbnail_image_url: faker.image.url(),
-      }),
-    ),
-  };
-}
-
-export default function Page({ loaderData: { list } }: Route.ComponentProps) {
+export default function Page() {
   const navigate = useNavigate();
 
   return (
@@ -26,16 +11,16 @@ export default function Page({ loaderData: { list } }: Route.ComponentProps) {
       <Header title={"카드 디자인 선택"} />
       <main {...stylex.props(styles.main)}>
         <ul {...stylex.props(styles.cardList)}>
-          {list.map((item) => (
+          {Object.values(templates).map((item) => (
             <li
               key={item.id}
-              onClick={() => navigate(`/create/template/${item.id}/content`)}
+              onClick={() => navigate(`/create/template/${item.id}/showcase`)}
               {...stylex.props(styles.cardItem)}
             >
               <img
-                alt={item.title}
-                src={item.thumbnail_image_url}
                 {...stylex.props(styles.cardItemThumbnail)}
+                alt={item.title}
+                src={item.thumbnailImageUrl}
               />
               <p>{item.title}</p>
             </li>
