@@ -3,7 +3,7 @@ import { useState } from "react";
 import type { Route } from "./+types/create.template.$templateId.content._index";
 
 import Header from "@/components/Header";
-import { ASSET_URL, TEMPLATE_URL } from "@/constant/assetUrl.ts";
+import { ASSET_URL, SHOWCASE_URL } from "@/constant/assetUrl.ts";
 import * as stylex from "@stylexjs/stylex";
 import { useNavigate } from "react-router";
 
@@ -36,7 +36,7 @@ export default function Page({
         <div
           {...stylex.props(
             styles.container,
-            !isSelected && styles.selectedContainer(TEMPLATE_URL, template.id),
+            !isSelected && styles.selectedContainer(SHOWCASE_URL, template.id),
           )}
         >
           <img
@@ -45,13 +45,15 @@ export default function Page({
             alt="back"
             {...stylex.props(styles.backButton)}
           />
-          <button
-            type="button"
-            onClick={() => setIsSelected(true)}
-            {...stylex.props(styles.selectButton)}
-          >
-            이걸로 결정!
-          </button>
+          <div {...stylex.props(styles.selectContainer)}>
+            <button
+              type="button"
+              onClick={() => setIsSelected(true)}
+              {...stylex.props(styles.selectButton)}
+            >
+              이걸로 결정!
+            </button>
+          </div>
         </div>
       )}
     </>
@@ -77,27 +79,37 @@ const styles = stylex.create({
   },
   selectedContainer: (url: string, id: string) => ({
     display: "flex",
-    backgroundImage: `url(${url}/template${id}_bg.png)`,
+    height: "100vh",
+    backgroundImage: `url(${url}/showcase${id}.png)`,
     backgroundSize: "cover",
     flexDirection: "column",
     alignItems: "center",
-    minHeight: "100vh",
+    overflowY: "scroll",
     backgroundColor: "#fff",
+    position: "relative",
   }),
   main: {
     marginTop: 52,
     padding: "24px 16px",
   },
   backButton: {
-    position: "fixed",
+    position: "absolute",
     top: "20px",
-    left: "150px",
+    left: "20px",
     cursor: "pointer",
   },
-  selectButton: {
-    position: "fixed",
+  selectContainer: {
     display: "flex",
-    bottom: "100px",
+    justifyContent: "center",
+    backgroundColor: "#ffffff",
+    bottom: "0",
+    position: "fixed",
+    width: "calc(100% - 32px)",
+    maxWidth: 430,
+    padding: "20px 16px",
+  },
+  selectButton: {
+    display: "flex",
     backgroundColor: "#FF731D",
     border: "none",
     borderRadius: 8,
@@ -107,12 +119,7 @@ const styles = stylex.create({
     fontSize: 16,
     fontWeight: "bold",
     padding: "16px",
-    width: "calc(100% - 32px)",
-    maxWidth: 400,
+    width: "100%",
     textAlign: "center",
-    animationName: floating,
-    animationDuration: "1.5s",
-    animationTimingFunction: "ease-in-out",
-    animationIterationCount: "infinite",
   },
 });
