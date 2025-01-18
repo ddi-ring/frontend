@@ -44,7 +44,7 @@ function MobileViewport(props: ComponentProps<"div">) {
 const styles = stylex.create({
   mobileViewport: {
     backgroundColor: "#fff",
-    maxWidth: 430,
+    maxWidth: 390,
     margin: "0 auto",
   },
 });

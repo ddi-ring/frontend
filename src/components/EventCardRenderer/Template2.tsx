@@ -48,7 +48,7 @@ const styles = stylex.create({
     padding: 20,
     textAlign: "center",
     whiteSpace: "pre",
-    width: "100vw",
+    width: "100%",
   },
   date: {
     color: "#87A3E8",
