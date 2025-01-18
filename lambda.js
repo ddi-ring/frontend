@@ -1,20 +1,25 @@
 import sls from "@codegenie/serverless-express";
+import { createRequestHandler } from "@react-router/express";
 import compression from "compression";
 import express from "express";
-import helmet from "helmet";
-import * as server from "./build/server/index.js";
+import * as build from "./build/server/index.js";
 
 const app = express();
 
 app.use(compression());
-app.use(helmet({ contentSecurityPolicy: true, hidePoweredBy: true }));
 
 app.use(
   "/assets",
   express.static("build/client/assets", { immutable: true, maxAge: "1y" })
 );
 app.use(express.static("build/client", { maxAge: "1h" }));
-app.use(server.app);
+app.all(
+  "*",
+  createRequestHandler({
+    build,
+    mode: "production",
+  })
+);
 
 const err_body = `<!doctype html>
 <html lang="en">
