@@ -17,7 +17,7 @@ const styles = stylex.create({
     padding: "14px 16px",
     position: "fixed",
     top: 0,
-    width: 430,
+    width: 390,
     zIndex: 10,
   },
   backButton: {
