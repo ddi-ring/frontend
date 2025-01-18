@@ -1,23 +1,24 @@
+import { EventCardRenderer } from "@/components/EventCardRenderer/EventCardRenderer";
+import { CircularIconButton } from "@/components/IconButton";
 import { ASSET_URL } from "@/constant/assetUrl.ts";
 import { flex } from "@/styles/flex";
+import ddi from "@ddi-ring/api";
 import stylex from "@stylexjs/stylex";
-import { Outlet, useNavigate } from "react-router";
-import type { Route } from "./+types/card.$eventCardId";
+import { LinkDescriptor, Outlet, useNavigate } from "react-router";
+import stylesheet from "../styles/font.css?url";
+import { Route } from "./+types/card.$eventCardId";
 
-export async function loader() {
-  // FIXME(@noahluftyang): 실제 api로 교체하기
-  return Promise.resolve({
-    thumbnail_image_url: "string",
-    id: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-    template_key: "string",
-    title: "string",
-    address: "string",
-    address_detail: "string",
-    invitation_message: "string",
-    event_time: "2025-01-18T02:59:03.964Z",
-    created_at: "2025-01-18T02:59:03.964Z",
-    updated_at: "2025-01-18T02:59:03.964Z",
-  });
+export function links() {
+  return [{ rel: "stylesheet", href: stylesheet }] satisfies LinkDescriptor[];
+}
+
+export async function loader({ params }: Route.LoaderArgs) {
+  return ddi.functional.event_cards.get(
+    {
+      host: "https://api.ddi-ring.com",
+    },
+    params.eventCardId
+  );
 }
 
 export default function Page({ loaderData, params }: Route.ComponentProps) {
@@ -25,7 +26,10 @@ export default function Page({ loaderData, params }: Route.ComponentProps) {
 
   return (
     <main>
-      <img alt={loaderData.title} src="/템플릿1_크리스마스.png" />
+      <EventCardRenderer
+        data={loaderData}
+        templateKey={loaderData.template_key}
+      />
       <div
         {...stylex.props(styles.fixedArea, flex.base("column"), flex.gap(12))}
       >

@@ -1,7 +1,9 @@
 import Header from "@/components/Header";
+import { templates } from "@/constant/template";
 import { thumbs } from "@/constant/thumbnail.ts";
 import * as stylex from "@stylexjs/stylex";
 import { useNavigate } from "react-router";
+import type { Route } from "./+types/create.template._index";
 
 export default function Page() {
   const navigate = useNavigate();
@@ -14,13 +16,14 @@ export default function Page() {
           {Object.values(thumbs).map((item) => (
             <li
               key={item.id}
-              onClick={() => navigate(`/create/template/${item.id}/content`)}
+              onClick={() => navigate(`/create/template/${item.id}/showcase`)}
               {...stylex.props(styles.cardItem)}
             >
               <img
                 alt={item.title}
                 src={item.thumbnailImageUrl}
                 {...stylex.props(styles.cardItemThumbnail)}
+
               />
               <p>{item.title}</p>
             </li>
