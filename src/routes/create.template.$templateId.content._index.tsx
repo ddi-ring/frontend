@@ -106,7 +106,7 @@ const styles = stylex.create({
     backgroundColor: "#ffffff",
     bottom: "0",
     position: "fixed",
-    width: "calc(100% - 32px)",
+    width: "100%",
     maxWidth: 430,
     padding: "20px 16px",
     gap: 10,
