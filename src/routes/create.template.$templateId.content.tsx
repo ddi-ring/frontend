@@ -22,7 +22,7 @@ export default function Page({ params: { templateId } }: Route.ComponentProps) {
               {
                 address_detail: fields.addressDetail ?? "",
                 address: fields.address,
-                event_date: fields.eventDate.replace(/./g, "-"),
+                event_date: fields.eventDate.replaceAll(".", "-"),
                 event_end_time: `${fields.endTime}:00`,
                 event_start_time: `${fields.startTime}:00`,
                 invitation_message: fields.invitationMessage ?? "",
