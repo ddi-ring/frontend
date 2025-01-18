@@ -1,5 +1,5 @@
 import { EventForm } from "@/components/EventForm.tsx";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { Route } from "./+types/create.template.$templateId.content._index";
 
 import Header from "@/components/Header";
@@ -22,6 +22,16 @@ export default function Page({
   const navigate = useNavigate();
 
   const [isSelected, setIsSelected] = useState(false);
+  const [imageHeight, setImageHeight] = useState("100vh");
+
+  useEffect(() => {
+    const img = new Image();
+    img.src = `${SHOWCASE_URL}/showcase${template.id}.png`;
+
+    img.onload = () => {
+      setImageHeight(`${img.height}px`);
+    };
+  }, [template.id]);
   return (
     <>
       {isSelected ? (
@@ -36,16 +46,18 @@ export default function Page({
         <div
           {...stylex.props(
             styles.container,
-            !isSelected && styles.selectedContainer(SHOWCASE_URL, template.id),
+            !isSelected &&
+              styles.selectedContainer(SHOWCASE_URL, template.id, imageHeight),
           )}
         >
-          <img
-            onClick={() => navigate(-1)}
-            src={`${ASSET_URL}/ic_arrow_bubble.svg`}
-            alt="back"
-            {...stylex.props(styles.backButton)}
-          />
           <div {...stylex.props(styles.selectContainer)}>
+            <button
+              type="button"
+              onClick={() => navigate(-1)}
+              {...stylex.props(styles.backButton)}
+            >
+              다시 선택!
+            </button>
             <button
               type="button"
               onClick={() => setIsSelected(true)}
@@ -77,9 +89,9 @@ const styles = stylex.create({
     minHeight: "100vh",
     backgroundColor: "#fff",
   },
-  selectedContainer: (url: string, id: string) => ({
+  selectedContainer: (url: string, id: string, height: string) => ({
     display: "flex",
-    height: "100vh",
+    height,
     backgroundImage: `url(${url}/showcase${id}.png)`,
     backgroundSize: "cover",
     flexDirection: "column",
@@ -87,17 +99,13 @@ const styles = stylex.create({
     overflowY: "scroll",
     backgroundColor: "#fff",
     position: "relative",
+    marginBottom: "80px",
   }),
   main: {
     marginTop: 52,
     padding: "24px 16px",
   },
-  backButton: {
-    position: "absolute",
-    top: "20px",
-    left: "20px",
-    cursor: "pointer",
-  },
+
   selectContainer: {
     display: "flex",
     justifyContent: "center",
@@ -107,6 +115,7 @@ const styles = stylex.create({
     width: "calc(100% - 32px)",
     maxWidth: 430,
     padding: "20px 16px",
+    gap: 10,
   },
   selectButton: {
     display: "flex",
@@ -119,6 +128,22 @@ const styles = stylex.create({
     fontSize: 16,
     fontWeight: "bold",
     padding: "16px",
+    width: "100%",
+    textAlign: "center",
+  },
+  backButton: {
+    display: "flex",
+    backgroundColor: "#fff",
+    border: "none",
+    borderRadius: 8,
+    color: "#FF731D",
+    justifyContent: "center",
+    cursor: "pointer",
+    fontSize: 16,
+    fontWeight: "bold",
+    padding: "16px",
+    borderStyle: "solid",
+    borderColor: "#E2E2E2",
     width: "100%",
     textAlign: "center",
   },

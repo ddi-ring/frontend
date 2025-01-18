@@ -1,5 +1,5 @@
 import Header from "@/components/Header";
-import { showcase } from "@/constant/showcase.ts";
+import { thumbs } from "@/constant/thumbnail.ts";
 import * as stylex from "@stylexjs/stylex";
 import { useNavigate } from "react-router";
 
@@ -11,7 +11,7 @@ export default function Page() {
       <Header title={"카드 디자인 선택"} />
       <main {...stylex.props(styles.main)}>
         <ul {...stylex.props(styles.cardList)}>
-          {Object.values(showcase).map((item) => (
+          {Object.values(thumbs).map((item) => (
             <li
               key={item.id}
               onClick={() => navigate(`/create/template/${item.id}/content`)}
