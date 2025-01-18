@@ -3,6 +3,7 @@ import { useState } from "react";
 import type { Route } from "./+types/create.template.$templateId.content._index";
 
 import Header from "@/components/Header";
+import { TEMPLATE_URL } from "@/constant/assetUrl.ts";
 import * as stylex from "@stylexjs/stylex";
 
 export async function loader({ params }: Route.LoaderArgs) {
@@ -33,10 +34,9 @@ export default function Page({
         <div
           {...stylex.props(
             styles.container,
-            !isSelected && styles.selectedContainer,
+            !isSelected && styles.selectedContainer(TEMPLATE_URL, template.id),
           )}
         >
-          선택한 템플릿 이미지가 보일 예정
           <button
             type="button"
             onClick={() => setIsSelected(true)}
@@ -67,13 +67,15 @@ const styles = stylex.create({
     minHeight: "100vh",
     backgroundColor: "#fff",
   },
-  selectedContainer: {
+  selectedContainer: (url: string, id: string) => ({
     display: "flex",
+    backgroundImage: `url(${url}/template${id}_bg.png)`,
+    backgroundSize: "cover",
     flexDirection: "column",
     alignItems: "center",
     minHeight: "100vh",
     backgroundColor: "#fff",
-  },
+  }),
   main: {
     marginTop: 52,
     padding: "24px 16px",
