@@ -42,14 +42,22 @@ export function ImageUpload({
             id="thumbnailImage"
             accept={ACCEPTED_IMAGE_TYPES.join(",")}
             {...register}
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
             onChange={(e) => {
               register.onChange(e);
               handleImageChange(e);
             }}
             {...stylex.props(styles.imageInput)}
           />
-          <img src={`${ASSET_URL}/ic_image.svg`} alt="갤러리 아이콘" />
-          <span {...stylex.props(styles.uploadText)}>이미지 추가</span>
+
+          <img
+            src={`${ASSET_URL}/ic_image${isHovered ? "_color" : ""}.svg`}
+            alt="갤러리 아이콘"
+          />
+          <span {...stylex.props(styles.uploadText(isHovered))}>
+            이미지 추가
+          </span>
         </div>
 
         <div {...stylex.props(styles.previewScroll)}>

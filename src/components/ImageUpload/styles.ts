@@ -57,10 +57,11 @@ export const styles = stylex.create({
     top: 0,
     width: "100%",
   },
-  uploadText: {
+  uploadText: (isHovered: boolean) => ({
     fontSize: "12px",
-    color: "#666",
-  },
+    marginTop: "4px",
+    color: isHovered ? "#FF731D" : "#666",
+  }),
   imagePreview: {
     width: "100px",
     height: "100px",
