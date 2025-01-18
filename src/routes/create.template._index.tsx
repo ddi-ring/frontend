@@ -1,5 +1,4 @@
 import Header from "@/components/Header";
-import { ASSET_URL } from "@/constant/assetUrl.ts";
 import { faker } from "@faker-js/faker";
 import * as stylex from "@stylexjs/stylex";
 import { useNavigate } from "react-router";
