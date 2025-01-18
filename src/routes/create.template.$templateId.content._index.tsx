@@ -22,16 +22,7 @@ export default function Page({
   const navigate = useNavigate();
 
   const [isSelected, setIsSelected] = useState(false);
-  const [imageHeight, setImageHeight] = useState("100vh");
 
-  useEffect(() => {
-    const img = new Image();
-    img.src = `${SHOWCASE_URL}/showcase${template.id}.png`;
-
-    img.onload = () => {
-      setImageHeight(`${img.height}px`);
-    };
-  }, [template.id]);
   return (
     <>
       {isSelected ? (
