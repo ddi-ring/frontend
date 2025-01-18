@@ -39,10 +39,10 @@ const styles = stylex.create({
     backgroundColor: "#004C3F",
     backgroundSize: "cover",
     color: "white",
-    minHeight: "100vh",
+    minHeight: 844,
     padding: 20,
     whiteSpace: "pre",
-    width: "100vw",
+    width: "100%",
   },
   title: {
     fontSize: 40,
