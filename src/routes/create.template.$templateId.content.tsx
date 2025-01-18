@@ -15,6 +15,42 @@ export default function Page({ params: { templateId } }: Route.ComponentProps) {
       <main {...stylex.props(styles.main)}>
         <EventForm
           onSubmit={async (fields) => {
+            if (fields.thumbnailImage) {
+              const file = fields.thumbnailImage[0];
+
+              const presignedData =
+                await ddi.functional.event_card_files.create(
+                  {
+                    host: "https://api.ddi-ring.com",
+                  },
+                  {
+                    name: file.name,
+                    extension: file.type,
+                    type: "gallery_image",
+                  },
+                );
+
+              try {
+                const response = await fetch(presignedData.presigned_url, {
+                  method: "PUT",
+                  body: file,
+                  headers: {
+                    "Content-Type": file.type,
+                  },
+                });
+
+                if (!response.ok) {
+                  throw new Error(`Upload failed: ${response.statusText}`);
+                }
+
+                return presignedData.event_card_file_id;
+              } catch (error) {
+                console.error("Error uploading to S3:", error);
+                throw error;
+              }
+            }
+
+            return;
             const data = await ddi.functional.event_cards.create(
               {
                 host: "https://api.ddi-ring.com",
@@ -29,7 +65,7 @@ export default function Page({ params: { templateId } }: Route.ComponentProps) {
                 password: fields.password,
                 template_key: templateId,
                 title: fields.title,
-              }
+              },
             );
 
             navigate(`/card/${data.event_card_id}`);
