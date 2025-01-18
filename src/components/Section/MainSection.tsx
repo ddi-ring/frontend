@@ -1,3 +1,4 @@
+import { ASSET_URL } from "@/constant/assetUrl.ts";
 import stylex from "@stylexjs/stylex";
 import { Link } from "react-router";
 import { styles } from "./styles";
@@ -18,6 +19,10 @@ export function MainSection({ section }: { section: MainSectionType }) {
         alt="띠링 캐릭터"
         {...stylex.props(styles.logoImage)}
       />
+      <div {...stylex.props(styles.floatContainer)}>
+        <img src={`${ASSET_URL}/ic_direct-down.svg`} alt="heart" />
+        <span {...stylex.props(styles.floatText)}>스크롤 해보세요</span>
+      </div>
       {section.button && (
         <Link to={section.button.link} {...stylex.props(styles.linkButton)}>
           {section.button.text}
