@@ -3,7 +3,7 @@ import * as stylex from "@stylexjs/stylex";
 export const styles = stylex.create({
   dialog: {
     width: "100%",
-    maxWidth: "430px",
+    maxWidth: 390,
     backgroundColor: "#fff",
     borderRadius: "16px 16px 0 0",
     position: "fixed",

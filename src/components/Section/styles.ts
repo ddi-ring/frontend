@@ -54,7 +54,7 @@ export const styles = stylex.create({
     marginBottom: 24,
   },
   logoImage: {
-    width: 430,
+    width: 390,
     height: 420,
   },
   description: {
