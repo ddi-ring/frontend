@@ -1,3 +1,4 @@
+import { ASSET_URL } from "@/constant/assetUrl.ts";
 import { type EventFormData, eventFormSchema } from "@/schmas/event-form.ts";
 // import { createEventCard, uploadEventCardFile } from "@ddi-ring/api";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -275,11 +276,7 @@ export function EventForm({ templateId }: EventFormProps) {
 
       <div {...stylex.props(styles.formGroup)}>
         <div {...stylex.props(styles.iconLabelContainer)}>
-          <img
-            src="/lock.svg"
-            alt="비밀번호 아이콘"
-            {...stylex.props(styles.lockIcon)}
-          />
+          <img src={`${ASSET_URL}/ic_password.svg`} alt="비밀번호 아이콘" />
           <label htmlFor="password" {...stylex.props(styles.label)}>
             초대장 비밀번호
           </label>
