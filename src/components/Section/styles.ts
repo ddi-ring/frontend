@@ -20,7 +20,7 @@ export const styles = stylex.create({
     height: "100vh",
     justifyContent: "center",
     padding: "0 20px",
-    backgroundImage: `url(${PNG_URL && PNG_URL}/mainSection.png)`,
+    backgroundImage: `url(${PNG_URL}/mainSection.png)`,
     backgroundSize: "cover",
     backgroundPosition: "center",
     backgroundRepeat: "no-repeat",
