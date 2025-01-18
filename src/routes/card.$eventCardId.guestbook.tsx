@@ -11,6 +11,7 @@ function getComments(params: { eventCardId: string }) {
     },
     {
       event_card_id: params.eventCardId,
+      size: 20,
     }
   );
 }
