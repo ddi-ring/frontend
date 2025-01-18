@@ -1,12 +1,22 @@
 import { styles } from "@/components/Dialog/Guestbook/styles.ts";
 import * as stylex from "@stylexjs/stylex";
+import { format } from "date-fns";
 import { useState } from "react";
 
+interface Comment {
+  id: string;
+  username: string;
+  content: string;
+  created_at: string;
+  updated_at: string;
+}
+
 interface GuestbookDialogProps {
+  comments: Comment[];
   onClose: () => void;
 }
 
-export function GuestbookDialog({ onClose }: GuestbookDialogProps) {
+export function GuestbookDialog({ comments, onClose }: GuestbookDialogProps) {
   const [name, setName] = useState("");
   const [message, setMessage] = useState("");
 
@@ -51,17 +61,20 @@ export function GuestbookDialog({ onClose }: GuestbookDialogProps) {
         </form>
 
         <div {...stylex.props(styles.comments)}>
-          {Array.from({ length: 5 }).map((_, index) => (
-            <div key={index} {...stylex.props(styles.commentItem)}>
+          {comments.map((comment) => (
+            <div key={comment.id} {...stylex.props(styles.commentItem)}>
               <div {...stylex.props(styles.commentHeader)}>
-                <button {...stylex.props(styles.editButton)}>쫀또기</button>
-                <span {...stylex.props(styles.date)}>25.01.08</span>
+                <button {...stylex.props(styles.editButton)}>
+                  {comment.username}
+                </button>
+                <span {...stylex.props(styles.date)}>
+                  {format(
+                    comment.updated_at ?? comment.created_at,
+                    "yyyy.MM.dd"
+                  )}
+                </span>
               </div>
-              <p {...stylex.props(styles.commentText)}>
-                쫀또기 먹구싶당~~~~~~
-                <br />
-                쫀도윽~~쫀또으ㅡㄱ~~~ 쫀도도도도독
-              </p>
+              <p {...stylex.props(styles.commentText)}>{comment.content}</p>
             </div>
           ))}
         </div>
